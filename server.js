@@ -5,10 +5,12 @@ const app = express()
 
 const PORT = process.env.PORT
 
+//===============================================================================
+	// Middleware
+//===============================================================================
 
-
-
-
+const authController = require('./controllers/authController.js')
+app.use('/auth', authController)
 
 
 
@@ -30,8 +32,8 @@ app.get('/', (req, res) => {
 
 
 
-
-
+	// this is our listener
+//===============================================================================
 
 app.listen(PORT, () => {
 
