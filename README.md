@@ -5,32 +5,20 @@
 
 User Story for MVP
 
- * User opens site to a home page to register/login 
- * The user can nav between this and the about me nav 
- * User must register to be able to login into the site
+ * User can register or login on the home page
+ * The user can navigate between the home page and the about me page
+ * It is required to register to have access to the web site
  * Once user registers/logs in they are taken to a list (index page) of stories
- * While user is logged in, they will have access to the site through nav tabs in the header
-
  * The nav tabs will be, Authors, Stories, My profile
-   
  * Authors tab will take the user to a list (index page) of author's , here the user can go to a author's profile page
-  - The user can select which story they want to read written by that author
- 
-
- * Stories tab will take the user to a list (index page) of stories where they can select which one to read
-  - The user can also go to each author's profile page (show page)
-  - Or user can go to the story itself (show page) 
-  - On each story the user can leave a comment, and review that story
-  - User can edit or delete their own comment
- 
+ * The user can select which story they want to read written by that author on their profile
+ * Stories tab will take the user to a list (index page) of stories where they can select which story to read
  * My Profile tab will contatin details about the user, they can edit or delete their profile 
-  - The user will see they are currently a commentator and will need to make 10 comments to create their own story
-  - There will see a button they can click on to see their current comments 
-  - Once the user has 10 comments their staus will be updated to Author
-  
-  * The user can now create stories and see a list of their stories 
- 
-  * When the user is logged out they are taken to login/register home page
+ * The user will see they are currently a commentator and will need to make 10 comments to create their own story
+ * There will see a button they can click on to see their current comments 
+ * Once the user has 10 comments their staus will be updated to Author
+ * The user can now create stories and see a list of their stories 
+ * When the user is logged out they are taken to login/register home page
 
 ======================================================================================
 
