@@ -8,25 +8,29 @@ User Story for MVP
  * User opens site to a home page to register/login 
  * The user can nav between this and the about me nav 
  * User must register to be able to login into the site
- * Once user registers they are taken to a list (index page) of stories by author
- * User can navigate to either a Author(show page) list(index page) of stories
- * Or user can go to the story itself (show page)
- * In each story (show page) the user can leave a comment & review for that story
- * The user can use the nav bar to see a list of their current comments
- * The user can edit/delete their comments and raitings, but can not increment raitings for one story
- * In each navigation they can go either way they choose i.e. in the reverse order
- * The user can access the Nav bar to also go to their profile 
- * The user can make changes to their profile, including details about themself
- * The user profile page will also have a status of reviwer 
- * If the user has 10 comments they will have the ability to create a story 
- * The user can now see a create story route on their nav bar 
- * They can also see a button on their profile to access their stories
- * The user can also access this on the nav bar as my stories 
- * On each profile of the users stories they can see comments and edit/delete their story
- * When a story is destoryed all their comments and raitings will be destoryed 
- * The user at any time can cancel their account on their profile or edit 
- * If the user destorys their profile their stories, comments and raitings are destoryed
- * When the user is logged out they are taken to login/register home page
+ * Once user registers/logs in they are taken to a list (index page) of stories
+ * While user is logged in, they will have access to the site through nav tabs in the header
+
+ * The nav tabs will be, Authors, Stories, My profile
+   
+ * Authors tab will take the user to a list (index page) of author's , here the user can go to a author's profile page
+  - The user can select which story they want to read written by that author
+ 
+
+ * Stories tab will take the user to a list (index page) of stories where they can select which one to read
+  - The user can also go to each author's profile page (show page)
+  - Or user can go to the story itself (show page) 
+  - On each story the user can leave a comment, and review that story
+  - User can edit or delete their own comment
+ 
+ * My Profile tab will contatin details about the user, they can edit or delete their profile 
+  - The user will see they are currently a commentator and will need to make 10 comments to create their own story
+  - There will see a button they can click on to see their current comments 
+  - Once the user has 10 comments their staus will be updated to Author
+  
+  * The user can now create stories and see a list of their stories 
+ 
+  * When the user is logged out they are taken to login/register home page
 
 ======================================================================================
 
@@ -59,10 +63,17 @@ User {
 	firstName: string, 
 	lastname: string, 
 	email: string, 
-	dob: num,
+	dob: date,
 	aboutMe: string,
-	profilePhoto: string
-	
+	createdOn: {
+		type: date,
+		default: date.now
+	}
+	profilePhoto: string,
+	author: {
+	 	type: boolean,
+		default: false
+	}
 }
 
 Story {
@@ -70,12 +81,18 @@ Story {
 	genre: string,
 	body: string,
 	commets: [comments.schema],
-	raiting: [raitings.schema]
-
+	createdOn: {
+		type: date,
+		default: Date.now
+	}
 }
 
 Comment {
 	comments: string,
+	createdOn: {
+		type: date, 
+		default: Date.now
+	}
 	user: ref - user 
 	
 }
@@ -83,6 +100,7 @@ Comment {
 Raiting {
 	raiting: boolean,
 	user: ref - user
+	story: ref - story
 	
 }
 
