@@ -9,16 +9,24 @@ const PORT = process.env.PORT
 	// Middleware
 //===============================================================================
 
-const authController = require('./controllers/authController.js')
-app.use('/auth', authController)
+
+//===============================================================================
+	// Controllers
+//===============================================================================
+// const authController = require('./controllers/authController.js')
+// app.use('/auth', authController)
 
 
 
-app.get('/', (req, res) => {
-	res.send('Hello this works')
+// app.get('/', (req, res) => {
+// 	res.send('Hello this works')
+// })
+
+
+
+app.get('*', (req, res) => {
+	res.render('404.ejs')
 })
-
-
 
 
 
