@@ -5,17 +5,15 @@
 
 User Story for MVP
 
- * User can register or login on the home page
- * The user can navigate between the home page and the about us page
- * It is required to register to have access to the web site
- * Once user registers/logs in they are taken to a list (index page) of stories
- * The user can navigate the site using the nav bar
- * The authors page will show a list of authors, and user can go to their profile from there, and select their stories
- * The stories page will list all the stories written by authors, and the user can select one to read or go to the authors        porfile
- * My Profile page will contatin details about the user, they can edit or delete their profile 
- * The user will see they are currently a commentator on the profile page, and will need to make 10 comments to create their 	own story
- * Once the user makes 10 comments their profile will be updated as an Author 
- * The user can now create their own stories, read, edit or delete them
+ * User can register/login or visit About Us link on the home page.
+ * It is required to register to have access to the web site.
+ * Once user registers/logs in they are taken to a list (index page) of user created stories.
+ * The user can navigate the site using the nav bar in the header.
+ * The Author's page shows a list of authors. Here the user can go to the author's profile and see their stories.
+ * The Stories page lists all the stories written by authors. The user can read a story or go to the author's profile.
+ * My Profile page will contain details about the user, they can edit or delete their profile here. 
+ * Profile page also shows whether a user is restricted as commentor or has access as an Author.
+ * After user makes 10 comments their profile will be updated as an Author, where they have access to create, edit, delete their own stories.
  * When the user is logged out they are taken to login/register home page
 
 ======================================================================================
