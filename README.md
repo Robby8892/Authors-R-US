@@ -52,7 +52,7 @@ User Story Stretch Goals
 
 Models Wireframe 
 
-
+```
 User {
 	username: string,
 	password: string,
@@ -85,5 +85,6 @@ Raiting {
 	user: ref - user
 	
 }
+```
 
 ======================================================================================
