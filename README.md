@@ -22,7 +22,7 @@ User Story for MVP
 
 User Story Stretch Goals 
 
-* User age raiting stories - users will need to be a certain age to read a story
+* User age rating stories - users will need to be a certain age to read a story
 * Adaptive profile page, users can store mulltiple photos on their profile page
 * User can link publications from other sites 
 * Users can upload videos of story telling in live performances 
@@ -81,8 +81,8 @@ Comment {
 	
 }
 
-Raiting {
-	raiting: boolean,
+Rating {
+	rating: boolean,
 	user: ref - user
 	story: ref - story
 	
