@@ -43,6 +43,9 @@ app.use(session({
 const userController = require('./controllers/userController.js')
 app.use('/users', userController)
 
+const storyController = require('./controllers/storyController.js')
+app.use('/stories', storyController)
+
 
 
 //===============================================================================
@@ -69,8 +72,10 @@ app.post('/', async(req, res) => {
 
 
 
+
 // login form: POST /(    )
 // app.post('/', )
+
 
 
 
