@@ -8,7 +8,7 @@ const PORT = process.env.PORT
 
 // middleware modules
 const bodyParser = require('body-parser')
-const sessions = require('express-session')
+const session = require('express-session')
 const bcrypt = require('bcrypt')
 
 
