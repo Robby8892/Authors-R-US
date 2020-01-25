@@ -2,10 +2,15 @@ require('dotenv').config()
 require('./db/db.js')
 const express = require('express')
 const app = express()
+const User = require('./models/user')
 
 const PORT = process.env.PORT
+
+// middleware modules
 const bodyParser = require('body-parser')
 const sessions = require('express-session')
+const bcrypt = require('bcrypt')
+
 
 //===============================================================================
 	// Middleware
@@ -31,16 +36,35 @@ app.use(session({
 //===============================================================================
 	// Controllers
 //===============================================================================
-const authControlller = require('./controllers/authController')
-app.use('/auth', authController)
+// Not currently needed, login/ registration through home route.
+// const authControlller = require('./controllers/authController')
+// app.use('/auth', authController)
 const userController = require('./controllers/userController.js')
 app.use('/users', userController)
 
 
 
+//===============================================================================
+	// Routes
+//===============================================================================
+
+// Use bcrypt for POST/create user route,
+	// install/ require method-override
+// use sessions in register/ login and implement with res.locals in server.js
+
+// register/login forms
 app.get('/', (req, res) => {
 	res.render('home.ejs')
 })
+
+
+
+
+
+
+
+
+
 
 
 app.get('/about', (req, res) => {
@@ -51,8 +75,6 @@ app.get('/about', (req, res) => {
 app.get('*', (req, res) => {
 	res.render('404.ejs')
 })
-
-
 
 
 
