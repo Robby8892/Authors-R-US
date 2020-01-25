@@ -7,6 +7,7 @@ const User = require('./models/user')
 const PORT = process.env.PORT
 
 // middleware modules
+const methodOverride = require('method-override')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const bcrypt = require('bcrypt')
@@ -48,18 +49,28 @@ app.use('/users', userController)
 	// Routes
 //===============================================================================
 
+app.get('/', (req, res) => {
+	res.render('home.ejs')
+})
+
 // Use bcrypt for POST/create user route,
 	// install/ require method-override
 // use sessions in register/ login and implement with res.locals in server.js
 
-// register/login forms
-app.get('/', (req, res) => {
-	res.render('home.ejs')
+// register form: POST /
+app.post('/', async(req, res) => {
+	console.log(req.body);
+	const desiredUsername = req.body.username
+	const usernameInUse = await User.findOne({ username: desiredUsername})
+
+	res.send('testing')
 })
 
 
 
 
+// login form: POST /(    )
+// app.post('/', )
 
 
 
@@ -73,7 +84,7 @@ app.get('/about', (req, res) => {
 
 
 app.get('*', (req, res) => {
-	res.render('404.ejs')
+	res.status(404).render('404.ejs')
 })
 
 
