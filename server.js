@@ -4,21 +4,35 @@ const express = require('express')
 const app = express()
 
 const PORT = process.env.PORT
+const bodyParser = require('body-parser')
+const sessions = require('express-session')
 
 //===============================================================================
 	// Middleware
 //===============================================================================
-
-
 app.use(express.static('public'))
+app.use(session({
+	secret: process.env.SESSION_SECRET,
+	resave: false,
+	saveUninitialized: false
+}))
+// local session data
+// app.use((req, res) => {
+// 	if(req.session.loggedIn) {
+// 		//local = session
+// 	} else {
+
+// 	}
+// 	nest()
+// })
+
+
 
 //===============================================================================
 	// Controllers
 //===============================================================================
-// const authController = require('./controllers/authController.js')
-// app.use('/auth', authController)
-
-
+const authControlller = require('./controllers/authController')
+app.use('/auth', authController)
 const userController = require('./controllers/userController.js')
 app.use('/users', userController)
 
@@ -43,7 +57,7 @@ app.get('*', (req, res) => {
 
 
 
-	// this is our listener
+	// Listener
 //===============================================================================
 
 app.listen(PORT, () => {
