@@ -29,17 +29,14 @@ app.get('/', (req, res) => {
 })
 
 
+app.get('/about', (req, res) => {
+	res.render('about.ejs')
+})
+
 
 app.get('*', (req, res) => {
 	res.render('404.ejs')
 })
-
-
-
-
-
-
-
 
 
 
