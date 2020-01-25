@@ -17,20 +17,29 @@ const bcrypt = require('bcrypt')
 	// Middleware
 //===============================================================================
 app.use(express.static('public'))
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(methodOverride('_method'))
 app.use(session({
 	secret: process.env.SESSION_SECRET,
 	resave: false,
 	saveUninitialized: false
 }))
 // local session data
-// app.use((req, res) => {
-// 	if(req.session.loggedIn) {
-// 		//local = session
-// 	} else {
-
-// 	}
-// 	nest()
-// })
+app.use((req, res, next) => {
+	if(req.session.loggedIn) {
+		//local = session
+	} else {
+		res.locals.registered = req.session.registered
+		if(req.session.registered) {
+			res.locals.registerSuccess = req.session.registerSuccess
+		} else {
+			res.locals.registered = undefined
+			res.locals.registerSuccess = undefined
+		}
+		res.locals.registering = req.session.registering
+	}
+	next()
+})
 
 
 
@@ -52,25 +61,47 @@ app.use('/stories', storyController)
 	// Routes
 //===============================================================================
 
+// home route
 app.get('/', (req, res) => {
 	res.render('home.ejs')
 })
-
-// Use bcrypt for POST/create user route,
-	// install/ require method-override
-// use sessions in register/ login and implement with res.locals in server.js
 
 // register form: POST /
 app.post('/', async(req, res) => {
 	console.log(req.body);
 	const desiredUsername = req.body.username
-	const usernameInUse = await User.findOne({ username: desiredUsername})
+	// find if username exists
+	const userAlreadyExists = await User.findOne({ username: desiredUsername})
 
-	res.send('testing')
+//	// Stretch: More logic and change with placeholders using session/locals
+	// query results: If username is or is not found
+	if(userAlreadyExists) {
+		req.session.registering = `Username ${desiredUsername} already taken`
+		res.redirect('/')
+	// create user
+	} else{
+		// Encrypt password and desired data using bcrypt for POST/create user route
+			//sync example -- needs to be async
+			//     const salt = bcrypt.genSaltSync(10) //// salt value >10?
+			//     const hashedPassword = bcrypt.hashSync(req.body.password, salt)
+
+		const createdUser = await User.create({
+			username: desiredUsername,
+			password: req.body.password, //       password: hashedPassword
+			firstName: req.body.firstName,
+			lastName: req.body.lastName,
+			email: req.body.email,
+			dob: req.body.dob
+		})
+		req.session.registered = true
+		req.session.registerSuccess = `Thank you for signing up, please login ${desiredUsername}`
+		req.session.userId = createdUser._id
+		req.session.username = createdUser.username
+
+
+		res.redirect('/')
+	}
 })
-
-
-
 
 
 // login form: POST /(    )
