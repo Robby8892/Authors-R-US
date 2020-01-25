@@ -10,11 +10,11 @@
 <h1>Home Page</h1>
 
 <div id='login-container'>
-	<form id='login-form' >
+	<form id='login-form' method="POST" action="/users">
 		<fieldset>
 			<legend>Login Here</legend>
 			<label for="login"></label>
-			<input id='login' type="text" name="login" placeholder="Enter your username">
+			<input id='login' type="text" name="username" placeholder="Enter your username">
 			<label for="password"></label>
 			<input id='password' type="password" name="password" placeholder="Enter your password">
 			<button class="btn btn-success">Login</button>

@@ -80,6 +80,7 @@ app.post('/', async(req, res) => {
 		res.redirect('/')
 	// create user
 	} else{
+
 		// Encrypt password and desired data using bcrypt for POST/create user route
 			//sync example -- needs to be async
 			//     const salt = bcrypt.genSaltSync(10) //// salt value >10?
@@ -98,32 +99,44 @@ app.post('/', async(req, res) => {
 		req.session.userId = createdUser._id
 		req.session.username = createdUser.username
 
-
-		res.redirect('/')
+		res.redirect('/users/profile')
 	}
 })
 
+// login form: POST
+app.post('/users', async(req, res) => {
+	const user = await User.findOne({ username: req.body.username })
+	console.log(user);
 
-// login form: POST /(    )
-// app.post('/', )
+	if(!user) {
+		req.session.registering = "Invalid username or password"
+		res.redirect('/')
+	} else {
+		// for bcrypt
+		const validLogin = req.body.password
+		if(validLogin) {
+			req.session.loggedIn = true
+			req.session.usedId = user._id
+			req.session.username = user.username
+			// // message for coming back in redirect page
+			res.redirect('/stories')
+		} else {
+			req.session.registering = "Invalid username or password"
+			res.redirect('/')
+		}
+	}
 
+})
 
-
-
-
-
-
-
+// About-Us route
 app.get('/about', (req, res) => {
 	res.render('about.ejs')
 })
 
-
+// 404/ undefined routes
 app.get('*', (req, res) => {
 	res.status(404).render('404.ejs')
 })
-
-
 
 
 	// Listener
