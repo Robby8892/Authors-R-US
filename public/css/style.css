@@ -1,0 +1,15 @@
+body { 
+	background-color: LemonChiffon;
+ }
+
+
+#login-container {
+	display: flex;
+
+
+}
+
+
+ #register-container {
+ 	display: flex;
+ }

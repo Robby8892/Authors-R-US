@@ -2,25 +2,46 @@
 <html>
 <head>
 	<title></title>
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
 
+<h1>Home Page</h1>
+
+<div id='login-container'>
+	<form id='login-form' >
+		<fieldset>
+			<legend>Login Here</legend>
+		<label for="login"></label>
+		<input id='login' type="text" name="login" placeholder="Enter your username">
+		<label for="password"></label>
+		<input id='password' type="password" name="password" placeholder="Enter your password">
+		<button>Login</button>
+		</fieldset>
+	</form>
+</div>
 
 
-<form id='login-form' >
-	<label for="login"></label>
-	<input id='login' type="text" name="login" placeholder="Enter your username">
-	<label for="password"></label>
-	<input id='password' type="password" name="password" placeholder="Enter your password">
-	<button>Login</button>
-</form>
-
-
-
-<form id='register-form'>
-
-
-</form>
+<div id='register-container'>
+	<form id='register-form'>
+		<fieldset>
+		<legend>Register Here</legend>
+		<label for="username">Username: </label>
+		<input id='username' type="text" name="username" placeholder="Create Username">
+		<label for="password">Password: </label>
+		<input id='password' type="password" name="password" placeholder="Create Password">
+		<label for="firstName">First Name: </label>
+		<input id='firstName' type="text" name="firstName" placeholder="Enter First Name">
+		<label for="lastName">Last Name: </label>
+		<input id='lastName' type="text" name="lastName" placeholder="Enter Last Name">
+		<label for="email">Email: </label>
+		<input id='email' type="text" name="email" placeholder="Enter Your Email">
+		<label for="dob">Date of Birth: </label>
+		<input type="date" name="dob" placeholder="Enter Your Date of Birth">
+		<button>Register</button>
+		</fieldset>
+	</form>
+</div>
 
 
 

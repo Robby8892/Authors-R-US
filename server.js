@@ -10,6 +10,8 @@ const PORT = process.env.PORT
 //===============================================================================
 
 
+app.use(express.static('public'))
+
 //===============================================================================
 	// Controllers
 //===============================================================================
@@ -17,10 +19,14 @@ const PORT = process.env.PORT
 // app.use('/auth', authController)
 
 
+const userController = require('./controllers/userController.js')
+app.use('/users', userController)
 
-// app.get('/', (req, res) => {
-// 	res.send('Hello this works')
-// })
+
+
+app.get('/', (req, res) => {
+	res.render('home.ejs')
+})
 
 
 
