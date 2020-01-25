@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title></title>
+	
 	<link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
@@ -16,7 +17,7 @@
 			<input id='login' type="text" name="login" placeholder="Enter your username">
 			<label for="password"></label>
 			<input id='password' type="password" name="password" placeholder="Enter your password">
-			<button>Login</button>
+			<button class="btn btn-success">Login</button>
 		</fieldset>
 	</form>
 </div>
@@ -40,7 +41,7 @@
 				<input id='email' type="text" name="email" placeholder="Enter Your Email" required minlength="1">
 				<label for="dob">Date of Birth: </label>
 				<input type="date" name="dob" placeholder="Enter Your Date of Birth" required minlength="8">
-				<button>Register</button>
+				<button class="btn btn-success">Register</button>
 			</fieldset>
 		</form>
 	</div>
@@ -49,6 +50,7 @@
 <% } else { %>
 	<h1><%= registerSuccess%><h1>
 <% } %>
+
 
 
 

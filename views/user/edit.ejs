@@ -1,0 +1,29 @@
+<%-include('../partials/header.ejs')%>
+
+<h1>Edit Profile</h1>
+
+
+<div id='edit-profile-container'>
+	<form id='register-form' method="POST" action="/">
+
+		<legend>Update Profile</legend>
+			<label for="username">Username: </label>
+			<input class="form-control" id='username' type="text" name="username" value="" required minlength="1">
+			<label for="password">Password: </label>
+			<input class="form-control" id='password' type="password" name="password" value="" required minlength="6">
+			<label for="firstName">First Name: </label>
+			<input class="form-control" id='firstName' type="text" name="firstName" value="" required minlength="1">
+			<label for="lastName">Last Name: </label>
+			<input class="form-control" id='lastName' type="text" name="lastName" value="" required minlength="1">
+			<label for="email">Email: </label>
+			<input class="form-control" id='email' type="text" name="email" value="" required minlength="1">
+			<label for="dob">Date of Birth: </label>
+			<input class="form-control" type="date" name="dob" value="" required minlength="8">
+			<button class="btn btn-success">Edit Profile</button>
+	</form>
+</div>
+
+
+
+
+<%-include('../partials/footer.ejs')%>
