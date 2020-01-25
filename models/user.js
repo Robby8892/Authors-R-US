@@ -33,7 +33,7 @@ const userSchema = mongoose.Schema({
 	profilePhoto: {
 		type: String,
 		default: ''
-	}
+	},
 	author: {
 		type: Boolean,
 		default: false
