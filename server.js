@@ -24,9 +24,8 @@ app.use(session({
 	resave: false,
 	saveUninitialized: false
 }))
+
 // local session data
-
-
 app.use((req, res, next) => {
 	
 	if(req.session.loggedIn) {
@@ -35,7 +34,6 @@ app.use((req, res, next) => {
 		res.locals.username = req.session.username
 		res.locals.userId = req.session.userId
 
-
 	} else {
 		res.locals.username = false
 		res.locals.userId = false 
@@ -43,9 +41,6 @@ app.use((req, res, next) => {
 	}
 	next()
 })
-
-
-
 
 
 //===============================================================================
@@ -61,7 +56,6 @@ const storyController = require('./controllers/storyController.js')
 app.use('/stories', storyController)
 
 
-
 //===============================================================================
 	// Routes
 //===============================================================================
@@ -69,10 +63,7 @@ app.use('/stories', storyController)
 // home route
 app.get('/', (req, res) => {
 
-
 	res.locals.message = req.session.message
-
-
 
 	res.render('home.ejs')
 })
@@ -97,7 +88,7 @@ app.post('/', async (req, res) => {
 	// create user
 	} else{
 
-		// change to async
+//		// change to async
 		const salt = bcrypt.genSaltSync(10) //// salt value >10?
 		const hashedPassword = bcrypt.hashSync(desiredPassword, salt)
 		// use async bcrypted password instead: 
@@ -118,7 +109,6 @@ app.post('/', async (req, res) => {
 		req.session.username = createdUser.username
 		req.session.message = `Thank you for signing up, please login ${desiredUsername} .`
 
-
 		res.redirect('/users/profile')
 	}
 })
@@ -126,7 +116,6 @@ app.post('/', async (req, res) => {
 // login form: POST
 app.post('/users', async (req, res) => {
 	const user = await User.findOne({ username: req.body.username })
-
 
 	if(!user) {
 		req.session.message = "Invalid username or password"
@@ -157,13 +146,11 @@ app.get('/logout', async (req,res,next) => {
 
 		await req.session.destroy()
 
-
 		res.redirect('/')
 	}catch(err){
 		next(err)
 	}
-
-	})
+})
 
 
 // About-Us route
@@ -184,6 +171,6 @@ app.listen(PORT, () => {
 
 	const  date = new Date
 
-	console.log(`${date} Sever is running on ${PORT}`);
+	console.log(`${date} Sever is running on port ${PORT}`);
 
 })
