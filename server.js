@@ -69,7 +69,10 @@ app.use('/stories', storyController)
 // home route
 app.get('/', (req, res) => {
 
+
 	res.locals.message = req.session.message
+
+
 
 	res.render('home.ejs')
 })
@@ -121,7 +124,7 @@ app.post('/', async (req, res) => {
 })
 
 // login form: POST
-app.post('/users', async(req, res) => {
+app.post('/users', async (req, res) => {
 	const user = await User.findOne({ username: req.body.username })
 
 
@@ -133,8 +136,7 @@ app.post('/users', async(req, res) => {
 //		// change to async
 		const loginInfoIsValid = bcrypt.compareSync(req.body.password, user.password)
 		// for bcrypt
-		const validLogin = req.body.password
-		if(validLogin) {
+		if(loginInfoIsValid) {
 			req.session.loggedIn = true
 			req.session.usedId = user._id
 			req.session.username = user.username
