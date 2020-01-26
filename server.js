@@ -25,23 +25,26 @@ app.use(session({
 	saveUninitialized: false
 }))
 // local session data
+
+
 app.use((req, res, next) => {
-	res.locals.loggedIn = req.session.loggedIn
-	if(req.session.loggedIn == true) {
+	
+	if(req.session.loggedIn) {
 		//local = session
+		res.locals.loggedIn = req.session.loggedIn
+		res.locals.username = req.session.username
+		res.locals.userId = req.session.userId
+
+
 	} else {
-		res.locals.loggedIn = false
-		res.locals.registered = req.session.registered
-		if(req.session.registered) {
-			res.locals.registerSuccess = req.session.registerSuccess
-		} else {
-			res.locals.registered = undefined
-			res.locals.registerSuccess = undefined
-		}
-		res.locals.homeFail = req.session.homeFail
+		res.locals.username = false
+		res.locals.userId = false 
+		res.locals.loggedIn = false 
 	}
 	next()
 })
+
+
 
 
 
@@ -65,28 +68,35 @@ app.use('/stories', storyController)
 
 // home route
 app.get('/', (req, res) => {
+
+	res.locals.message = req.session.message
+
 	res.render('home.ejs')
 })
 
 // register form: POST /
-app.post('/', async(req, res) => {
-	console.log(req.body);
+app.post('/', async (req, res) => {
+
+	
 	const desiredUsername = req.body.username
 	const desiredPassword = req.body.password
 	// find if username exists
-	const userAlreadyExists = await User.findOne({ username: desiredUsername})
+	const userAlreadyExists = await User.findOne({
+		username: desiredUsername
+		})
 
 //	// Stretch: More logic and change with placeholders using session/locals
 	// query results: If username is or is not found
 	if(userAlreadyExists) {
-		req.session.homeFail = `Username ${desiredUsername} already taken`
+		req.session.message = `Username ${desiredUsername} already taken`
+
 		res.redirect('/')
 	// create user
 	} else{
 
 		// change to async
 		const salt = bcrypt.genSaltSync(10) //// salt value >10?
-		const hashedPassword = bcrypt.hashSync(req.body.password, salt)
+		const hashedPassword = bcrypt.hashSync(desiredPassword, salt)
 		// use async bcrypted password instead: 
 			// bcrypt.hash(desiredPassword, 10).then(function(hash) {
 			// 	// Store hash in your password DB.
@@ -101,9 +111,10 @@ app.post('/', async(req, res) => {
 			dob: req.body.dob
 		})
 		req.session.loggedIn = true
-		req.session.registerSuccess = `Thank you for signing up, please login ${desiredUsername}`
 		req.session.userId = createdUser._id
 		req.session.username = createdUser.username
+		req.session.message = `Thank you for signing up, please login ${desiredUsername} .`
+
 
 		res.redirect('/users/profile')
 	}
@@ -112,10 +123,11 @@ app.post('/', async(req, res) => {
 // login form: POST
 app.post('/users', async(req, res) => {
 	const user = await User.findOne({ username: req.body.username })
-	console.log(user);
+
 
 	if(!user) {
-		req.session.homeFail = "Invalid username or password"
+		req.session.message = "Invalid username or password"
+
 		res.redirect('/')
 	} else {
 //		// change to async
@@ -129,11 +141,28 @@ app.post('/users', async(req, res) => {
 			// // message for coming back in redirect page
 			res.redirect('/stories')
 		} else {
-			req.session.homeFail = "Invalid username or password"
+			req.session.message = "Invalid username or password"
+
 			res.redirect('/')
 		}
 	}
 })
+
+// logout -- destroy all session info
+
+app.get('/logout', async (req,res,next) => {
+	try {
+
+		await req.session.destroy()
+
+
+		res.redirect('/')
+	}catch(err){
+		next(err)
+	}
+
+	})
+
 
 // About-Us route
 app.get('/about', (req, res) => {

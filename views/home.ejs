@@ -1,4 +1,3 @@
-<% if(loggedIn == false){%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +9,7 @@
 
 
 	<h1>Home Page</h1>
+	<p><%=message%></p>
 
 	<div id='login-container'>
 		<form id='login-form' method="POST" action="/users">
@@ -47,13 +47,7 @@
 		</form>
 	</div>
 
-	<h1><%= homeFail%></h1>
-<% } else { %>
-	<%-include('./partials/header.ejs')%>
 
-	<h1>Already Logged In.</h1>
-	<h1>Please select above where you would like to go.</h1>
-<% } %>
 
 
 
