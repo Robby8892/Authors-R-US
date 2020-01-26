@@ -1,0 +1,23 @@
+<%-include('../partials/header.ejs')%>
+
+<h1>Create Your Story</h1>
+
+
+<form method="POST" action="/stories/new">
+	<fieldset>
+		<label for="title">Title: </label>
+		<input class="form-control" id='title' type="text" name="title" placeholder="Your Story Title" minlength="1">
+		<label for="genre">Genre: </label>
+		<input class="form-control" id='genre' type="text" name="genre" minlength="1" placeholder="Enter Story Genre">
+		<label for="body">Your Story:</label>
+		<textarea class="form-control" id='body' name='body' 
+		maxlength="1500" rows='10' cols='30'
+		spellcheck="true" minlength="1" placeholder="It was a dark stormy night...." ></textarea>
+		<button class="btn btn-success">Create Story</button>
+	</fieldset>
+</form>
+
+
+
+
+<%-include('../partials/footer.ejs')%>

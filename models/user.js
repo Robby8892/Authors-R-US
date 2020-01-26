@@ -36,7 +36,7 @@ const userSchema = mongoose.Schema({
 	},
 	author: {
 		type: Boolean,
-		default: false
+		default: true
 	}
 })
 
