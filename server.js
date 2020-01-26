@@ -70,6 +70,7 @@ app.get('/', (req, res) => {
 app.post('/', async(req, res) => {
 	console.log(req.body);
 	const desiredUsername = req.body.username
+	const desiredPassword = req.body.password
 	// find if username exists
 	const userAlreadyExists = await User.findOne({ username: desiredUsername})
 
@@ -81,14 +82,17 @@ app.post('/', async(req, res) => {
 	// create user
 	} else{
 
-		// Encrypt password and desired data using bcrypt for POST/create user route
-			//sync example -- needs to be async
-			//     const salt = bcrypt.genSaltSync(10) //// salt value >10?
-			//     const hashedPassword = bcrypt.hashSync(req.body.password, salt)
-
+		// change to async
+		const salt = bcrypt.genSaltSync(10) //// salt value >10?
+		const hashedPassword = bcrypt.hashSync(req.body.password, salt)
+		// use async bcrypted password instead: 
+			// bcrypt.hash(desiredPassword, 10).then(function(hash) {
+			// 	// Store hash in your password DB.
+			// })
 		const createdUser = await User.create({
 			username: desiredUsername,
-			password: req.body.password, //       password: hashedPassword
+			// change to async
+			password: hashedPassword,
 			firstName: req.body.firstName,
 			lastName: req.body.lastName,
 			email: req.body.email,
@@ -112,6 +116,8 @@ app.post('/users', async(req, res) => {
 		req.session.registering = "Invalid username or password"
 		res.redirect('/')
 	} else {
+//		// change to async
+		const loginInfoIsValid = bcrypt.compareSync(req.body.password, user.password)
 		// for bcrypt
 		const validLogin = req.body.password
 		if(validLogin) {
