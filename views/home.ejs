@@ -1,3 +1,4 @@
+<% if(loggedIn == false){%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,23 +8,23 @@
 </head>
 <body>
 
-<h1>Home Page</h1>
 
-<div id='login-container'>
-	<form id='login-form' method="POST" action="/users">
-		<fieldset>
-			<legend>Login Here</legend>
-			<label for="login"></label>
-			<input id='login' type="text" name="username" placeholder="Enter your username">
-			<label for="password"></label>
-			<input id='password' type="password" name="password" placeholder="Enter your password">
-			<button class="btn btn-success">Login</button>
-		</fieldset>
-	</form>
-</div>
+	<h1>Home Page</h1>
+
+	<div id='login-container'>
+		<form id='login-form' method="POST" action="/users">
+			<fieldset>
+				<legend>Login Here</legend>
+				<label for="login"></label>
+				<input id='login' type="text" name="username" placeholder="Enter your username">
+				<label for="password"></label>
+				<input id='password' type="password" name="password" placeholder="Enter your password">
+				<button class="btn btn-success">Login</button>
+			</fieldset>
+		</form>
+	</div>
 
 
-<% if(registered == undefined){%>
 
 	<div id='register-container'>
 		<form id='register-form' method="POST" action="/">
@@ -46,9 +47,12 @@
 		</form>
 	</div>
 
-	<h1><%= registering%></h1>
+	<h1><%= homeFail%></h1>
 <% } else { %>
-	<h1><%= registerSuccess%><h1>
+	<%-include('./partials/header.ejs')%>
+
+	<h1>Already Logged In.</h1>
+	<h1>Please select above where you would like to go.</h1>
 <% } %>
 
 

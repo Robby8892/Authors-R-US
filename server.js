@@ -26,9 +26,11 @@ app.use(session({
 }))
 // local session data
 app.use((req, res, next) => {
-	if(req.session.loggedIn) {
+	res.locals.loggedIn = req.session.loggedIn
+	if(req.session.loggedIn == true) {
 		//local = session
 	} else {
+		res.locals.loggedIn = false
 		res.locals.registered = req.session.registered
 		if(req.session.registered) {
 			res.locals.registerSuccess = req.session.registerSuccess
@@ -36,7 +38,7 @@ app.use((req, res, next) => {
 			res.locals.registered = undefined
 			res.locals.registerSuccess = undefined
 		}
-		res.locals.registering = req.session.registering
+		res.locals.homeFail = req.session.homeFail
 	}
 	next()
 })
@@ -77,7 +79,7 @@ app.post('/', async(req, res) => {
 //	// Stretch: More logic and change with placeholders using session/locals
 	// query results: If username is or is not found
 	if(userAlreadyExists) {
-		req.session.registering = `Username ${desiredUsername} already taken`
+		req.session.homeFail = `Username ${desiredUsername} already taken`
 		res.redirect('/')
 	// create user
 	} else{
@@ -98,7 +100,7 @@ app.post('/', async(req, res) => {
 			email: req.body.email,
 			dob: req.body.dob
 		})
-		req.session.registered = true
+		req.session.loggedIn = true
 		req.session.registerSuccess = `Thank you for signing up, please login ${desiredUsername}`
 		req.session.userId = createdUser._id
 		req.session.username = createdUser.username
@@ -113,7 +115,7 @@ app.post('/users', async(req, res) => {
 	console.log(user);
 
 	if(!user) {
-		req.session.registering = "Invalid username or password"
+		req.session.homeFail = "Invalid username or password"
 		res.redirect('/')
 	} else {
 //		// change to async
@@ -127,11 +129,10 @@ app.post('/users', async(req, res) => {
 			// // message for coming back in redirect page
 			res.redirect('/stories')
 		} else {
-			req.session.registering = "Invalid username or password"
+			req.session.homeFail = "Invalid username or password"
 			res.redirect('/')
 		}
 	}
-
 })
 
 // About-Us route
