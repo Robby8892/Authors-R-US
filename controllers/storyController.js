@@ -27,6 +27,22 @@ router.get('/create', async (req,res,next) => {
 
 	})
 
+router.get('/:id', async (req,res,next) => {
+	try {
+
+		const foundStory = await Story.findById(req.params.id)
+
+		res.render('story/show.ejs', {
+			story: foundStory
+		})
+
+	}catch(err){
+		next(err)
+	}
+
+	})
+
+
 router.post('/create', async (req,res,next) => {
 	try {
 		const newStory = {

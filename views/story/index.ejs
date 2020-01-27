@@ -4,7 +4,8 @@
 
 	<ul>
 	<% stories.forEach((story) => { %>
-		<li><a href="">story.title</a></li>	
+		<li><a href="/stories/<%=story._id%>"><%=story.title%></a></li>
+		<p>By: <%=story.user.username%></p>	
 	<% }) %>
 	</ul>
 
