@@ -87,10 +87,11 @@ router.put('/:id/edit', async (req, res, next) => {
 })
 
 
-router.delete('/', async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
 	try{
 		const deletedStories = await Story.remove({ user: req.session.userId})
 		const deletedUser = await User.findByIdAndRemove(req.session.userId)
+
 		res.redirect('/')
 	}catch(err){
 		next(err)

@@ -18,6 +18,18 @@ router.get('/', async (req, res, next) => {
 })
 
 
+router.get('/new', async (req,res,next) => {
+	try {
+
+		res.render('story/new.ejs')
+
+
+	}catch(err){
+		next(err)
+	}
+
+})
+
 router.get('/:id', async (req, res, next) => {
 	try {
 		const foundStory = await Story.findById(req.params.id)
@@ -37,32 +49,7 @@ router.get('/:id', async (req, res, next) => {
 
 
 
-router.get('/create', async (req,res,next) => {
-	try {
 
-		res.render('story/new.ejs')
-
-
-	}catch(err){
-		next(err)
-	}
-
-})
-
-router.get('/:id', async (req,res,next) => {
-	try {
-
-		const foundStory = await Story.findById(req.params.id)
-
-		res.render('story/show.ejs', {
-			story: foundStory
-		})
-
-	}catch(err){
-		next(err)
-	}
-
-})
 
 router.get('/:id/edit', async (req,res,next) => {
 	try {
@@ -78,7 +65,7 @@ router.get('/:id/edit', async (req,res,next) => {
 })
 
 
-router.post('/create', async (req,res,next) => {
+router.post('/new', async (req,res,next) => {
 	try {
 		const newStory = {
 		title: req.body.title,
@@ -89,7 +76,7 @@ router.post('/create', async (req,res,next) => {
 
 	const createdStory = await Story.create(newStory)
 
-	res.redirect('/stories')
+	res.redirect('/users/stories/myStories')
 
 	}catch(err){
 		next(err)
@@ -115,8 +102,8 @@ router.put('/:id/edit', async (req, res, next) => {
 
 router.delete('/:id', async (req,res,next) => {
 	try {
-		const deletedStory = await Story.findByIdAndRemove(req.params.storyId)
-		res.redirect('/users/' + userId + '/stories')
+		const deletedStory = await Story.findByIdAndRemove(req.params.id)
+		res.redirect('/users/stories/myStories')
 
 	}catch(err){
 		next(err)

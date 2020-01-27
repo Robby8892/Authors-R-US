@@ -109,7 +109,7 @@ app.post('/', async (req, res) => {
 		req.session.username = createdUser.username
 		req.session.message = `Thank you for signing up, please login ${desiredUsername} .`
 
-		res.redirect('/users/profile')
+		res.redirect('/users/' + req.session.userId)
 	}
 })
 
