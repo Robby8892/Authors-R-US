@@ -5,11 +5,13 @@ const User = require('../models/user.js')
 const Story = require('../models/story.js')
 
 
-router.get('/profile', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
 	try {
+		const userInput = req.params.id
 		const foundUser = await User.findById(req.session.userId)
 		res.render('user/show.ejs', {
-			user: foundUser
+			user: foundUser,
+			userInput: userInput
 		})
 
 		// profilePhoto: // user add profile photo
@@ -19,35 +21,6 @@ router.get('/profile', async (req, res, next) => {
 	}
 })
 
-router.get('/profile/stories', async (req, res, next) => {
-	try {
-		const foundStories = await Story.find({user: req.session.userId})
-
-		res.render('user/storyIndex.ejs', {
-			stories: foundStories
-		})
-
-	}catch(err){
-		next(err)
-	}
-})
-
-router.get('/profile/stories/:storyId', async (req,res,next) => {
-	try {
-
-		const foundStory = await Story.findById(req.params.storyId)
-		res.render('user/storyShow.ejs', {
-			story: foundStory
-		})
-
-	}catch(err){
-		next(err)
-	}
-
-})
-	
-
-
 
 router.get('/', async (req,res,next) => {
 	try {
@@ -55,18 +28,30 @@ router.get('/', async (req,res,next) => {
 		// here we will render a list of all authors on the site not including 
 		// the person logged in
 
-
-		res.render('user/index.ejs')
+		const foundUsers = await User.find({ $nor: [ { _id: req.session.userId}]})
+		console.log(foundUsers);
+		res.render('user/index.ejs', { users: foundUsers})
 
 	}catch(err){
 		next(err)
 	}
 
-	})
+})
 
+router.get('/stories/junk', async (req,res,next) => {
+	try {
 
+		const foundStories = await Story.find({ user: req.session.userId})
+		res.render('story/index.ejs', {
+			stories: foundStories
+		})
 
-router.get('/profile/:id/edit', async (req,res,next) => {
+	}catch(err){
+		next(err)
+	}
+
+})
+router.get('/:id/edit', async (req,res,next) => {
 	try {
 		// from the profile page the user can select edit profile
 		// to route them to a edit profile page, this will include
@@ -82,7 +67,7 @@ router.get('/profile/:id/edit', async (req,res,next) => {
 	})
 
 
-router.put('/profile/:id/edit', async (req, res, next) => {
+router.put('/:id/edit', async (req, res, next) => {
 	try {
 
 		// stretch: password validation then choose new password
@@ -95,25 +80,14 @@ router.put('/profile/:id/edit', async (req, res, next) => {
 		}
 
 		const updatedProfile = await User.findByIdAndUpdate(req.params.id, userUpdatedProfile)
-		res.redirect('/users/profile')
+		res.redirect('/users/' + req.session.userId)
 	}catch(err){
 		next(err)
 	}
 })
 
 
-router.delete('/profile/stories/:storyId', async (req,res,next) => {
-	try {
-		const deletedStory = await Story.findByIdAndRemove(req.params.storyId)
-		res.redirect('/users/profile/stories')
-
-	}catch(err){
-		next(err)
-	}
-})
-
-
-router.delete('/profile', async (req, res, next) => {
+router.delete('/', async (req, res, next) => {
 	try{
 		const deletedStories = await Story.remove({ user: req.session.userId})
 		const deletedUser = await User.findByIdAndRemove(req.session.userId)

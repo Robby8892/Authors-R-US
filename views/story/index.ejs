@@ -1,15 +1,18 @@
 <%-include('../partials/header.ejs')%>
 
+
+	
 	<h1>List of Stories</h1>
+<ul>
+<% stories.forEach((story) => {%>
+	<li>
+		<a href="/stories/<%= story._id%>"><%=story.title%></a>
+		<p>By:<%=story.user.username%></p>
+	</li>
 
-	<ul>
-	<% stories.forEach((stories) => { %>
-		<li><a href="/stories/<%=stories._id%>"><%=stories.title%></a></li>
-		<p>By: <%=stories.user.username%></p>	
-	<% }) %>
-	</ul>
 
-
+<%})%>
+</ul>
 
 
 <%-include('../partials/footer.ejs')%>
