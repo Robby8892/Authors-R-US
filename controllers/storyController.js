@@ -83,7 +83,7 @@ router.put('/:id/edit', async (req, res, next) => {
 			body: req.body.body
 		}
 		const updatedStory = await Story.findByIdAndUpdate(req.params.id, userUpdatedStory)
-		res.redirect('/users/profile/stories/' + req.params.id)
+		res.redirect('/users/' + req.session.userId + 'stories/' + req.params.id)
 	}catch(err){
 		next(err)
 	}

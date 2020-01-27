@@ -127,6 +127,7 @@ app.post('/users', async (req, res) => {
 //		// change to async
 		const loginInfoIsValid = bcrypt.compareSync(req.body.password, user.password)
 		// for bcrypt
+
 		if(loginInfoIsValid) {
 			req.session.loggedIn = true
 			req.session.userId = user._id
