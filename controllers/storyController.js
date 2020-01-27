@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 
-
 const Story = require('../models/story.js')
 
 router.get('/', async (req, res) => {
@@ -74,9 +73,21 @@ router.post('/create', async (req,res,next) => {
 	}catch(err){
 		next(err)
 	}
+})
 
-	})
-
+router.put('/:id/edit', async (req, res, next) => {
+	try {
+		const userUpdatedStory = {
+			title: req.body.title,
+			genre: req.body.genre,
+			body: req.body.body
+		}
+		const updatedStory = await Story.findByIdAndUpdate(req.params.id, userUpdatedStory)
+		res.redirect('/users/profile/stories/' + req.params.id)
+	}catch(err){
+		next(err)
+	}
+})
 
 
 

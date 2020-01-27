@@ -21,7 +21,6 @@ router.get('/profile/stories', async (req, res, next) => {
 	try {
 		const foundStories = await Story.find({user: req.session.userId})
 
-
 		res.render('user/storyIndex.ejs', {
 			stories: foundStories
 		})
@@ -29,7 +28,7 @@ router.get('/profile/stories', async (req, res, next) => {
 	}catch(err){
 		next(err)
 	}
-
+})
 
 router.get('/profile/stories/:storyId', async (req,res,next) => {
 	try {
@@ -43,9 +42,8 @@ router.get('/profile/stories/:storyId', async (req,res,next) => {
 		next(err)
 	}
 
-	})
-	
 })
+	
 
 
 
