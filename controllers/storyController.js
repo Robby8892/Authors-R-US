@@ -6,8 +6,9 @@ const Story = require('../models/story.js')
 
 router.get('/', async (req, res) => {
 	try {
+		// This will find all the stories written by users who don't share the userId
+	const foundStories = await Story.find({$nor:[{user: req.session.userId}]}).populate('user') 
 
-	const foundStories = await Story.find({}).populate('user') 
 	res.render('story/index.ejs', { stories: foundStories})
 
 	}catch(err){

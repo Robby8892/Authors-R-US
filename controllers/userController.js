@@ -2,10 +2,49 @@ const express = require('express')
 const router = express.Router()
 
 const User = require('../models/user.js')
+const Story = require('../models/story.js')
 
 
-router.get('/profile', (req, res) => {
-	res.render('user/show.ejs')
+router.get('/profile', async (req, res, next) => {
+	try {
+	const foundStories = await Story.find({user: req.session.userId})
+	res.render('user/show.ejs', {
+		stories: foundStories
+	})
+
+	}catch(err){
+		next(err)
+	}
+})
+
+router.get('/profile/stories', async (req, res, next) => {
+	try {
+		const foundStories = await Story.find({user: req.session.userId})
+
+
+		res.render('user/storyIndex.ejs', {
+			stories: foundStories
+		})
+
+	}catch(err){
+		next(err)
+	}
+
+
+router.get('/profile/stories/:storyId', async (req,res,next) => {
+	try {
+
+		const foundStory = await Story.findById(req.params.storyId)
+		res.render('user/storyShow.ejs', {
+			story: foundStory
+		})
+
+	}catch(err){
+		next(err)
+	}
+
+	})
+	
 })
 
 
