@@ -80,6 +80,17 @@ router.get('/profile/:id/edit', async (req,res,next) => {
 
 	})
 
+router.delete('/profile/stories/:storyId', async (req,res,next) => {
+	try {
+
+		const deletedStory = await Story.findByIdAndRemove(req.params.storyId)
+		res.redirect('/users/profile/stories')
+
+	}catch(err){
+		next(err)
+	}
+
+	})
 
 
 

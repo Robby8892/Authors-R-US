@@ -14,7 +14,7 @@ const mongdbURI = process.env.MONGODB_URI
 mongoose.connect(mongdbURI, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
-	useFindAndModify: true
+	useFindAndModify: false
 
 })
 
@@ -40,6 +40,6 @@ mongoose.connection.on('error', (err) => {
 // 	console.log('');
 // })
 
-Story.insertMany(storyData, (err, data) => {
+// Story.insertMany(storyData, (err, data) => {
 	// console.log(storyData);
-})
+// })
