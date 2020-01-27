@@ -26,4 +26,24 @@ router.post('/:storyId', async (req,res,next) => {
 })
 
 
+router.delete('/:storyId/:commentId', async (req,res,next) => {
+	try {
+		const story = await Story.findById(req.params.storyId)
+
+			console.log(story);
+
+			story.comments.id(req.params.commentId).remove()
+			await story.save()
+
+
+			res.redirect('/stories/' + req.params.storyId)
+
+
+	}catch(err){
+		next(err)
+	}
+
+	})
+
+
 module.exports = router
