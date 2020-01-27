@@ -84,13 +84,10 @@ router.get('/profile/:id/edit', async (req,res,next) => {
 
 router.put('/profile/:id/edit', async (req, res, next) => {
 	try {
-		// const newPassword = req.body.password
-		// const salt = bcrypt.genSaltSync(10) //// salt value >10?
-		// const hashedPassword = bcrypt.hashSync(newPassword, salt)
+
+		// stretch: password validation then choose new password
 
 		const userUpdatedProfile = {
-			username: req.body.username,
-			// password: hashedPassword, // stretch: password validation then choose new password
 			firstName: req.body.firstName,
 			lastName: req.body.lastName,
 			email: req.body.email,
@@ -107,15 +104,24 @@ router.put('/profile/:id/edit', async (req, res, next) => {
 
 router.delete('/profile/stories/:storyId', async (req,res,next) => {
 	try {
-
 		const deletedStory = await Story.findByIdAndRemove(req.params.storyId)
 		res.redirect('/users/profile/stories')
 
 	}catch(err){
 		next(err)
 	}
+})
 
-	})
+
+router.delete('/profile', async (req, res, next) => {
+	try{
+		const deletedStories = await Story.remove({ user: req.session.userId})
+		const deletedUser = await User.findByIdAndRemove(req.session.userId)
+		res.redirect('/')
+	}catch(err){
+		next(err)
+	}
+})
 
 
 
