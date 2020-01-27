@@ -7,10 +7,12 @@ const Story = require('../models/story.js')
 
 router.get('/profile', async (req, res, next) => {
 	try {
-	const foundStories = await Story.find({user: req.session.userId})
-	res.render('user/show.ejs', {
-		stories: foundStories
-	})
+		const foundUser = await User.findById(req.session.userId)
+		res.render('user/show.ejs', {
+			user: foundUser
+		})
+
+		// profilePhoto: // user add profile photo
 
 	}catch(err){
 		next(err)
@@ -69,14 +71,39 @@ router.get('/profile/:id/edit', async (req,res,next) => {
 		// from the profile page the user can select edit profile
 		// to route them to a edit profile page, this will include
 		// all of their information
+		const userToEdit = await User.findById(req.params.id)
 
-		res.render('user/edit.ejs')
+		res.render('user/edit.ejs', { user: userToEdit})
 
 	}catch(err){
 		next(err)
 	}
 
 	})
+
+
+router.put('/profile/:id/edit', async (req, res, next) => {
+	try {
+		const newPassword = req.body.password
+		const salt = bcrypt.genSaltSync(10) //// salt value >10?
+		const hashedPassword = bcrypt.hashSync(newPassword, salt)
+
+		const userUpdatedProfile = {
+			username: req.body.username,
+			// password: hashedPassword, // stretch: password validation then choose new password
+			firstName: req.body.firstName,
+			lastName: req.body.lastName,
+			email: req.body.email,
+			dob: req.body.dob
+		}
+
+		const updatedProfile = await User.findByIdAndUpdate(req.params.id, userUpdatedProfile)
+		res.redirect('/users/profile')
+	}catch(err){
+		next(err)
+	}
+})
+
 
 router.delete('/profile/stories/:storyId', async (req,res,next) => {
 	try {

@@ -1,24 +1,24 @@
 <%-include('../partials/header.ejs')%>
 
+<% const year = user.dob.getFullYear()%>
+<% const month = user.dob.getMonth()%>
+<% const day = user.dob.getDate()%>
+
 <h1>Edit Profile</h1>
 
 
 <div id='edit-profile-container'>
-	<form id='register-form' method="POST" action="/">
+	<form id='register-form' method="POST" action="/users/profile/">
 
 		<legend>Update Profile</legend>
-			<label for="username">Username: </label>
-			<input class="form-control" id='username' type="text" name="username" value="" required minlength="1">
-			<label for="password">Password: </label>
-			<input class="form-control" id='password' type="password" name="password" value="" required minlength="6">
 			<label for="firstName">First Name: </label>
-			<input class="form-control" id='firstName' type="text" name="firstName" value="" required minlength="1">
+			<input class="form-control" id='firstName' type="text" name="firstName" value="<%= user.firstName%>" required minlength="1">
 			<label for="lastName">Last Name: </label>
-			<input class="form-control" id='lastName' type="text" name="lastName" value="" required minlength="1">
+			<input class="form-control" id='lastName' type="text" name="lastName" value="<%= user.lastName%>" required minlength="1">
 			<label for="email">Email: </label>
-			<input class="form-control" id='email' type="text" name="email" value="" required minlength="1">
+			<input class="form-control" id='email' type="text" name="email" value="<%= user.email%>" required minlength="1">
 			<label for="dob">Date of Birth: </label>
-			<input class="form-control" type="date" name="dob" value="" required minlength="8">
+			<input class="form-control" type="text" name="dob" value="<%=`${year}-${month}-${day}`%>" required minlength="8">
 			<button class="btn btn-success">Edit Profile</button>
 	</form>
 </div>
