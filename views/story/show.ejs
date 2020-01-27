@@ -1,11 +1,23 @@
 <%-include('../partials/header.ejs')%>
 
+<% if (userId = userInput) {%>
+
+	<a href="/stories/<%=story._id%>/edit" title=""><small>Edit Story</small></a>
+	<h1><%=story.title%></h1>
+	<h3><%=story.genre%></h3>
+	<p><%=story.body%></p>
+	<form method='POST' action="/users/profile/stories/<%=story._id%>?_method=delete">
+		<button class="btn btn-danger">Delete Story</button>
+	</form>
+
+<%} else {%>
+
 	<h1><%=story.title%></h1>
 	<h3><%=story.genre%></h3>
 
 	<p><%=story.body%></p>
 
-
+	<%}%>
 
 
 <%-include('../partials/footer.ejs')%>

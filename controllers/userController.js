@@ -8,7 +8,7 @@ const Story = require('../models/story.js')
 router.get('/:id', async (req, res, next) => {
 	try {
 		const userInput = req.params.id
-		const foundUser = await User.findById(req.session.userId)
+		const foundUser = await User.findById(req.params.id)
 		res.render('user/show.ejs', {
 			user: foundUser,
 			userInput: userInput
@@ -38,10 +38,10 @@ router.get('/', async (req,res,next) => {
 
 })
 
-router.get('/stories/junk', async (req,res,next) => {
+router.get('/stories/myStories', async (req,res,next) => {
 	try {
 
-		const foundStories = await Story.find({ user: req.session.userId})
+		const foundStories = await Story.find({ user: req.session.userId}).populate('user')
 		res.render('story/index.ejs', {
 			stories: foundStories
 		})
