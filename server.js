@@ -117,6 +117,8 @@ app.post('/', async (req, res) => {
 app.post('/users', async (req, res) => {
 	const user = await User.findOne({ username: req.body.username })
 
+
+
 	if(!user) {
 		req.session.message = "Invalid username or password"
 
@@ -127,9 +129,9 @@ app.post('/users', async (req, res) => {
 		// for bcrypt
 		if(loginInfoIsValid) {
 			req.session.loggedIn = true
-			req.session.usedId = user._id
+			req.session.userId = user._id
 			req.session.username = user.username
-			// // message for coming back in redirect page
+
 			res.redirect('/stories')
 		} else {
 			req.session.message = "Invalid username or password"

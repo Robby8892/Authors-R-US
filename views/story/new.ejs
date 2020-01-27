@@ -3,16 +3,16 @@
 <h1>Create Your Story</h1>
 
 
-<form method="POST" action="/stories/new">
+<form method="POST" action="/stories/create">
 	<fieldset>
 		<label for="title">Title: </label>
-		<input class="form-control" id='title' type="text" name="title" placeholder="Your Story Title" minlength="1">
+		<input required minlength="1" class="form-control" id='title' type="text" name="title" placeholder="Your Story Title" >
 		<label for="genre">Genre: </label>
-		<input class="form-control" id='genre' type="text" name="genre" minlength="1" placeholder="Enter Story Genre">
+		<input required minlength="1" class="form-control" id='genre' type="text" name="genre" placeholder="Enter Story Genre" >
 		<label for="body">Your Story:</label>
-		<textarea class="form-control" id='body' name='body' 
+		<textarea required minlength="1" class="form-control" id='body' name='body' 
 		maxlength="1500" rows='10' cols='30'
-		spellcheck="true" minlength="1" placeholder="It was a dark stormy night...." ></textarea>
+		spellcheck="true" placeholder="It was a dark stormy night...." ></textarea>
 		<button class="btn btn-success">Create Story</button>
 	</fieldset>
 </form>
