@@ -1,14 +1,10 @@
 <%-include('../partials/header.ejs')%>
 
-<% const year = user.dob.getFullYear()%>
-<% const month = user.dob.getMonth()%>
-<% const day = user.dob.getDate()%>
-
 <h1>Edit Profile</h1>
 
 
 <div id='edit-profile-container'>
-	<form id='register-form' method="POST" action="/users/profile/">
+	<form id='register-form' method="POST" action="/users/profile/<%= user._id%>/edit?_method=PUT">
 
 		<legend>Update Profile</legend>
 			<label for="firstName">First Name: </label>
@@ -18,7 +14,7 @@
 			<label for="email">Email: </label>
 			<input class="form-control" id='email' type="text" name="email" value="<%= user.email%>" required minlength="1">
 			<label for="dob">Date of Birth: </label>
-			<input class="form-control" type="text" name="dob" value="<%=`${year}-${month}-${day}`%>" required minlength="8">
+			<input class="form-control" type="text" name="dob" value="<%= user.dob.toLocaleDateString()%>" required minlength="8">
 			<button class="btn btn-success">Edit Profile</button>
 	</form>
 </div>

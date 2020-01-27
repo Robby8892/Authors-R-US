@@ -84,9 +84,9 @@ router.get('/profile/:id/edit', async (req,res,next) => {
 
 router.put('/profile/:id/edit', async (req, res, next) => {
 	try {
-		const newPassword = req.body.password
-		const salt = bcrypt.genSaltSync(10) //// salt value >10?
-		const hashedPassword = bcrypt.hashSync(newPassword, salt)
+		// const newPassword = req.body.password
+		// const salt = bcrypt.genSaltSync(10) //// salt value >10?
+		// const hashedPassword = bcrypt.hashSync(newPassword, salt)
 
 		const userUpdatedProfile = {
 			username: req.body.username,
