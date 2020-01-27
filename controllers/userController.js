@@ -27,7 +27,6 @@ router.get('/', async (req,res,next) => {
 
 		// here we will render a list of all authors on the site not including 
 		// the person logged in
-
 		const foundUsers = await User.find({ $nor: [ { _id: req.session.userId}]})
 		console.log(foundUsers);
 		res.render('user/index.ejs', { users: foundUsers})
@@ -51,11 +50,10 @@ router.get('/stories/myStories', async (req,res,next) => {
 	}
 
 })
+
 router.get('/:id/edit', async (req,res,next) => {
 	try {
-		// from the profile page the user can select edit profile
-		// to route them to a edit profile page, this will include
-		// all of their information
+
 		const userToEdit = await User.findById(req.params.id)
 
 		res.render('user/edit.ejs', { user: userToEdit})
@@ -64,7 +62,7 @@ router.get('/:id/edit', async (req,res,next) => {
 		next(err)
 	}
 
-	})
+})
 
 
 router.put('/:id/edit', async (req, res, next) => {

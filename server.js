@@ -55,6 +55,9 @@ app.use('/users', userController)
 const storyController = require('./controllers/storyController.js')
 app.use('/stories', storyController)
 
+const commentController = require('./controllers/commentController.js')
+app.use('/comments', commentController)
+
 
 //===============================================================================
 	// Routes

@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 
+const Comment = require('./comment.js')
+
 const storySchema = mongoose.Schema({
 
 	title: {
@@ -22,7 +24,8 @@ const storySchema = mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User',
 		required: true
-	}
+	},
+	comments: [Comment.schema]
 
 })
 

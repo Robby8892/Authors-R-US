@@ -32,9 +32,8 @@ router.get('/new', async (req,res,next) => {
 
 router.get('/:id', async (req, res, next) => {
 	try {
-		const foundStory = await Story.findById(req.params.id)
+		const foundStory = await Story.findById(req.params.id).populate('user').populate('comments.user')
 		const userInput = req.params.id
-		console.log(userInput);
 
 		res.render('story/show.ejs', {
 			story: foundStory,

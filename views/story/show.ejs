@@ -15,5 +15,19 @@
 
 <%} %>
 
+<form method='POST' action='/comments/<%=story._id%>'>
+	<label for="comment"></label>
+	<textarea name='text' id='comment' rows="4" cols="40" spellcheck="true" required minlength="1" required minlength="1000" placeholder='Enter Your Review'  ></textarea>
+	<button class="btn btn-warning" >Post Comment</button>
+</form>
+
+<% story.comments.forEach((comment) => { %>
+		<blockquote class='comment-block'>
+			<p><%=comment.text%></p>
+		</blockquote>
+	<p>Written by:<%=comment.user.username%></p>
+
+ <% }) %>
+
 
 <%-include('../partials/footer.ejs')%>
