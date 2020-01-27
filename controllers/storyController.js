@@ -43,6 +43,19 @@ router.get('/:id', async (req,res,next) => {
 
 	})
 
+router.get('/:id/edit', async (req,res,next) => {
+	try {
+		const storyToEdit = await Story.findById(req.params.id)
+		res.render('story/edit.ejs', {
+			story: storyToEdit
+		})
+
+	}catch(err){
+		next(err)
+	}
+
+	})
+
 
 router.post('/create', async (req,res,next) => {
 	try {
@@ -63,12 +76,6 @@ router.post('/create', async (req,res,next) => {
 	}
 
 	})
-
-
-
-
-
-
 
 
 

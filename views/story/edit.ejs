@@ -1,0 +1,23 @@
+<%-include('../partials/header.ejs')%>
+
+<h1>Edit <%=story.title%></h1>
+
+
+<form method="POST" action="/stories/<%=story._id%>/edit?_method=PUT">
+	<fieldset>
+		<label for="title">Title: </label>
+		<input required minlength="1" class="form-control" id='title' type="text" name="title" value='<%=story.title%>' >
+		<label for="genre">Genre: </label>
+		<input required minlength="1" class="form-control" id='genre' type="text" name="genre" value='<%=story.genre%>' >
+		<label for="body">Your Story:</label>
+		<textarea required minlength="1" class="form-control" id='body' name='body' 
+		maxlength="1500" rows='10' cols='30'
+		spellcheck="true"><%=story.body%></textarea>
+		<button class="btn btn-success">Edit Story</button>
+	</fieldset>
+</form>
+
+
+
+
+<%-include('../partials/footer.ejs')%>
