@@ -5,7 +5,12 @@
 
 
 <ul>
-	<li>Name: Sample name</li>
+	<% users.forEach((user) => { %>
+	
+		<li>Author: <a href="/users/<%= user._id%>"><%= user.username%></a></li>
+			
+	<% }) %>
+
 </ul>
 
 
