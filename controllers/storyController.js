@@ -20,10 +20,13 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
 	try {
-		const foundStories = await Story.find({user: req.session.userId})
+		const foundStory = await Story.findById(req.params.id)
+		const userInput = req.params.id
+		console.log(userInput);
 
 		res.render('story/show.ejs', {
-			stories: foundStories
+			story: foundStory,
+			userInput: userInput
 		})
 
 	}catch(err){
@@ -102,7 +105,7 @@ router.put('/:id/edit', async (req, res, next) => {
 		}
 		const updatedStory = await Story.findByIdAndUpdate(req.params.id, userUpdatedStory)
 
-		res.redirect('/users/' + req.session.userId + 'stories/' + req.params.id)
+		res.redirect('/stories/' + req.params.id )
 
 	}catch(err){
 		next(err)
