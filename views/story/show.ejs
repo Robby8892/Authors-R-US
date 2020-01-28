@@ -1,13 +1,9 @@
 <%-include('../partials/header.ejs')%>
 	
 	<form method='POST' action='/ratings/<%= story._id%>'>
-		<button name='vote' value="true">(UpVote)</button>
-		<button name='vote' value="<%`${false}`%>">(DownVote)</button>
+		<button class="btn btn-outline-success" style="font-size: 0.8em;"name='vote' value="true">👍</button> vote!
+		<button class="btn btn-outline-danger" style="font-size: 0.8em" name='vote' value="false">👎</button>
 	</form>
-
-<!-- 	<form>
-		<button>(DownVote)</button>
-	</form> -->
 
 	<h1><%=story.title%></h1>
 	<h3><%=story.genre%></h3>
