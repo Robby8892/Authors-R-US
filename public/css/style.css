@@ -20,3 +20,10 @@ body {
  #edit-profile-container {
  	
  }
+
+ .comment-block {
+ 	background-color: LightSkyBlue;
+ 	width: 15%;
+ 	height: 100px;
+ 	box-shadow: 10px 5px 5px GoldenRod;
+ }
