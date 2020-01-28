@@ -1,8 +1,8 @@
 <%-include('../partials/header.ejs')%>
 	
 	<form method='POST' action='/ratings/<%= story._id%>'>
-		<button class="btn btn-outline-success" style="font-size: 0.8em;"name='vote' value="true">👍</button> vote!
-		<button class="btn btn-outline-danger" style="font-size: 0.8em" name='vote' value="false">👎</button>
+		<button class="btn btn-outline-success" style="padding: 5px;"name='vote' value="true">👍</button> vote!
+		<button class="btn btn-outline-danger" style="padding: 5px;" name='vote' value="false">👎</button>
 	</form>
 
 	<h1><%=story.title%></h1>
