@@ -6,7 +6,9 @@ const Story = require('../models/story')
 
 router.post('/:storyId', async (req,res,next) => {
 	try {
-		const foundStory = await Story.findById(req.params.storyId)
+		const foundStory = await Story.findById(req.params.storyId).populate('ratings.user')
+
+		await Story.findByIdAndUpdate( req.params.storyId, {$pull:{'ratings':{'user': req.session.userId}}})
 
 		// boolean determined on button press
 		let whichVote = undefined
@@ -28,15 +30,18 @@ router.post('/:storyId', async (req,res,next) => {
 		// next: 
 
 		// prevent user from clicking button more than once based on userId == user._id??
-
 		// Add logic in client side js to display number of up/down votes based on number of tru/ false 
 		//booleans in Story.ratings...:
 		// i.e.: 
-		// let result = 0
-		// Story.ratings.forEach((rating) => {
-			// if (true){
-				// result += 1
-			// }
+		// let upVote = 0
+		// let downVote = 0
+		// foundStory.ratings.forEach((rating) => {
+		// 	if (req.body.vote === true) {
+		// 		upVote += 1
+		// 	}
+		// 	if (req.body.vote === false) {
+		// 		downVote += 1
+		// 	}
 		// })
 
 		foundStory.ratings.push(userRating)
