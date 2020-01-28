@@ -9,10 +9,10 @@ router.post('/:storyId', async (req,res,next) => {
 		const foundStory = await Story.findById(req.params.storyId)
 
 		// boolean determined on button press
-		let whichVote = false
+		let whichVote = undefined
 		if (req.body.vote === 'true') {
 			whichVote = true
-		} else {
+		} else if (req.body.vote === 'false') { 
 			whichVote = false
 		}
 		const userRating = {
@@ -20,9 +20,10 @@ router.post('/:storyId', async (req,res,next) => {
 			user: res.locals.userId
 		}
 
-		// console.log('\nthis is the rating:');
-		// console.log(userRating);
-		// console.log(typeof userRating.vote);
+		console.log('\nthis is the rating: ');
+		console.log(userRating);
+		console.log('\nthis is the rating.vote type: ');
+		console.log(typeof userRating.vote);
 
 		// next: 
 
@@ -41,8 +42,8 @@ router.post('/:storyId', async (req,res,next) => {
 		foundStory.ratings.push(userRating)
 		await foundStory.save()
 
-		console.log('\nthis is the story:');
-		console.log(foundStory);
+		// console.log('\nthis is the story:');
+		// console.log(foundStory);
 
 		res.redirect('/stories/' + req.params.storyId)
 	}catch(err){
