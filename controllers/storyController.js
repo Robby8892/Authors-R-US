@@ -47,12 +47,26 @@ router.get('/new', async (req,res,next) => {
 
 router.get('/:id', async (req, res, next) => {
 	try {
-		const foundStory = await Story.findById(req.params.id).populate('user').populate('comments.user')
+		const foundStory = await Story.findById(req.params.id).populate('user').populate('comments.user').populate('ratings.user')
 		const userInput = req.params.id
+
+				// i.e.: 
+		let upVote = 0
+		let downVote = 0
+		foundStory.ratings.forEach((rating) => {
+			if (rating.vote === true) {
+				upVote += 1
+			}
+			if (rating.vote === false) {
+				downVote += 1
+			}
+		})
 
 		res.render('story/show.ejs', {
 			story: foundStory,
-			userInput: userInput
+			userInput: userInput,
+			upVote: upVote,
+			downVote: downVote
 		})
 
 	}catch(err){
