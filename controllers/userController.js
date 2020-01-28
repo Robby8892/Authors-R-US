@@ -88,38 +88,12 @@ router.put('/:id/edit', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
 	try{
 
-		// We need to destory the users comment when they destory the accout
-		// which means we have to find the comments within all stories that have
-		// a ref to user 
-		// const findAllStories = await Story.find({}).populate('comments.user')
-		// console.log(findAllStories);
 
 		const deleteComments = await Story.updateMany({$pull:{'comments':{'user': req.session.userId}}})
+		const deletedStories = await Story.remove({ user: req.session.userId})
+		const deletedUser = await User.findByIdAndRemove(req.session.userId)
 
-
-		console.log(deleteComments);
-
-		// findAllStories.comments.user.id(req.params.id).remove()
-
-		// for(let i = 0; i < findAllStories.length; i++) {
-
-		// 	for(let j = 0; j < findAllStories[i].comments.length; j++) {
-
-				// findAllStories[i].comments[j].update()
-
-
-		// 			// const test = findAllStories[i].comments[j].remove()
-		// 			// console.log('this is all the ones to be removed by this id 5e2f51a3f29c2833ee3d9239');
-		// 			// console.log(test);
-		// 			await findAllStories[i].save()
-					
-		// 	}
-		// }
-
-		// const deletedStories = await Story.remove({ user: req.session.userId})
-		// const deletedUser = await User.findByIdAndRemove(req.session.userId)
-
-		// res.redirect('/')
+		res.redirect('/')
 	}catch(err){
 		next(err)
 	}
