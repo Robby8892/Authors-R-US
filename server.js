@@ -58,6 +58,9 @@ app.use('/stories', storyController)
 const commentController = require('./controllers/commentController.js')
 app.use('/comments', commentController)
 
+const ratingController = require('./controllers/ratingController.js')
+app.use('/ratings', ratingController)
+
 
 //===============================================================================
 	// Routes
@@ -74,7 +77,6 @@ app.get('/', (req, res) => {
 // register form: POST /
 app.post('/', async (req, res) => {
 
-	
 	const desiredUsername = req.body.username
 	const desiredPassword = req.body.password
 	// find if username exists
@@ -120,8 +122,6 @@ app.post('/', async (req, res) => {
 app.post('/users', async (req, res) => {
 	const user = await User.findOne({ username: req.body.username })
 
-
-
 	if(!user) {
 		req.session.message = "Invalid username or password"
 
@@ -146,10 +146,8 @@ app.post('/users', async (req, res) => {
 })
 
 // logout -- destroy all session info
-
 app.get('/logout', async (req,res,next) => {
 	try {
-
 		await req.session.destroy()
 
 		res.redirect('/')
@@ -174,9 +172,6 @@ app.get('*', (req, res) => {
 //===============================================================================
 
 app.listen(PORT, () => {
-
 	const  date = new Date
-
 	console.log(`${date} Sever is running on port ${PORT}`);
-
 })
