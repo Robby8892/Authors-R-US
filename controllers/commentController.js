@@ -75,6 +75,7 @@ router.put('/:commentId/:storyId', async (req,res,next) => {
 		const foundComment = foundStory.comments.id(req.params.commentId)
 
 		foundComment.text = req.body.text
+		
 		await foundStory.save()
 
 		res.redirect('/stories/' + req.params.storyId)
