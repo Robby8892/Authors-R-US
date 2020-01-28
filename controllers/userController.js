@@ -79,22 +79,22 @@ router.put('/:id/edit', async (req, res, next) => {
 
 		const updatedProfile = await User.findByIdAndUpdate(req.params.id, userUpdatedProfile)
 		res.redirect('/users/' + req.session.userId)
-	}catch(err){
+	} catch(err) {
 		next(err)
 	}
 })
 
 
 router.delete('/:id', async (req, res, next) => {
-	try{
+	try {
 
-
-		const deleteComments = await Story.updateMany({$pull:{'comments':{'user': req.session.userId}}})
+		const deletedRatings = await Story.updateMany({$pull:{'ratings':{'user': req.session.userId}}})
+		const deletedComments = await Story.updateMany({$pull:{'comments':{'user': req.session.userId}}})
 		const deletedStories = await Story.remove({ user: req.session.userId})
 		const deletedUser = await User.findByIdAndRemove(req.session.userId)
 
 		res.redirect('/')
-	}catch(err){
+	} catch(err) {
 		next(err)
 	}
 })

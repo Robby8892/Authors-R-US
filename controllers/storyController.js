@@ -50,7 +50,6 @@ router.get('/:id', async (req, res, next) => {
 		const foundStory = await Story.findById(req.params.id).populate('user').populate('comments.user').populate('ratings.user')
 		const userInput = req.params.id
 
-				// i.e.: 
 		let upVote = 0
 		let downVote = 0
 		foundStory.ratings.forEach((rating) => {
