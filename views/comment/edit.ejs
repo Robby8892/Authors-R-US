@@ -1,0 +1,21 @@
+
+<%-include('../partials/header.ejs')%>
+
+<h2>Edit Your Comment</h2>
+
+
+<form method='POST' action='/comments/<%=comment._id%>/<%=story._id%>?_method=PUT'>
+	<label for="comment"></label>
+	<textarea class='test' name='text' id='comment' rows="4" cols="40" spellcheck="true" required minlength="1" required minlength="1000" ><%=comment.text%></textarea>
+	<button class="btn btn-warning" >Edit Comment</button>
+</form>
+
+
+
+
+
+<%-include('../partials/footer.ejs')%>
+
+
+
+

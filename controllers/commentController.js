@@ -4,6 +4,30 @@ const router = express.Router()
 const Comment = require('../models/comment.js')
 const Story = require('../models/story.js')
 
+
+router.get('/:commentId/:storyId', async (req,res,next) => {
+	try {
+
+		const foundStory = await Story.findById(req.params.storyId).populate('comments.user')
+
+
+		const foundComment = foundStory.comments.id(req.params.commentId)
+
+
+
+		res.render('comment/edit.ejs', {
+			comment: foundComment, 
+			story: foundStory
+		})
+
+	}catch(err){
+		next(err)
+	}
+
+	})
+
+
+
 router.post('/:storyId', async (req,res,next) => {
 	try {
 		const foundStory = await Story.findById(req.params.storyId)
@@ -28,16 +52,33 @@ router.post('/:storyId', async (req,res,next) => {
 
 router.delete('/:storyId/:commentId', async (req,res,next) => {
 	try {
-		const story = await Story.findById(req.params.storyId)
+		const foundStory = await Story.findById(req.params.storyId)
 
-			console.log(story);
-
-			story.comments.id(req.params.commentId).remove()
-			await story.save()
+			foundStory.comments.id(req.params.commentId).remove()
+			await foundStory.save()
 
 
 			res.redirect('/stories/' + req.params.storyId)
 
+
+	}catch(err){
+		next(err)
+	}
+
+	})
+
+router.put('/:commentId/:storyId', async (req,res,next) => {
+	try {
+
+		const foundStory = await Story.findById(req.params.storyId).populate('comments.user')
+
+		const foundComment = foundStory.comments.id(req.params.commentId)
+
+		foundComment.text = req.body.text
+		
+		await foundStory.save()
+
+		res.redirect('/stories/' + req.params.storyId)
 
 	}catch(err){
 		next(err)

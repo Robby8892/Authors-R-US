@@ -19,21 +19,30 @@
 
 <% } %>
 
+<br>
+
 <form method='POST' action='/comments/<%=story._id%>'>
 	<label for="comment"></label>
 	<textarea name='text' id='comment' rows="4" cols="40" spellcheck="true" required minlength="1" required minlength="1000" placeholder='Enter Your Review'></textarea>
 	<button class="btn btn-warning">Post Comment</button>
+
 </form>
 
+
+
 <% story.comments.forEach((comment) => { %>
-	<blockquote class='comment-block'>
-		<p><%=comment.text%></p>
-	</blockquote>
-	<p>Written by: <%=comment.user.username%></p>
+
+		<blockquote class='comment-block'>
+			<p><%=comment.text%></p>
+		</blockquote>
+	<p>Written by:<%=comment.user.username%></p>
+	<a href="/comments/<%=comment._id%>/<%=story._id%>" title=""><small><small><small>(Edit Comment)</small></small></small></a>
+
 	<form method='POST' action='/comments/<%=story._id%>/<%=comment._id%>?_method=delete'>
 		<small><button class="btn btn-outline-warning"><small><small>Delete Comment</small></small></button></small>
 	</form>
 <% }) %>
+
 
 
 <%-include('../partials/footer.ejs')%>

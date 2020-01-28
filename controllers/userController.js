@@ -37,7 +37,7 @@ router.get('/', async (req,res,next) => {
 
 })
 
-router.get('/stories/myStories', async (req,res,next) => {
+router.get('/stories/:id', async (req,res,next) => {
 	try {
 
 		const foundStories = await Story.find({ user: req.session.userId}).populate('user')
@@ -87,6 +87,9 @@ router.put('/:id/edit', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
 	try{
+
+
+		const deleteComments = await Story.updateMany({$pull:{'comments':{'user': req.session.userId}}})
 		const deletedStories = await Story.remove({ user: req.session.userId})
 		const deletedUser = await User.findByIdAndRemove(req.session.userId)
 

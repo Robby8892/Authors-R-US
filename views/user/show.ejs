@@ -20,13 +20,14 @@
 	</form>
 	
 <% } else { -%>
+
 	<h2><%=user.username%> Profile Page</h2>
 
 	<p><%= user.firstName%></p>
 	<p><%= user.lastName%></p>
 	<p><%= user.username%> joined Authors-R-Us on <%= user.createdOn.toLocaleDateString()%></p>
 
-	<a href="/stories"><%= user.username%>'s Stories</a>
+	<a href="/stories/users/<%=user._id%>"><%= user.username%>'s Stories</a>
 <% } -%>
 
 <%-include('../partials/footer.ejs')%>
