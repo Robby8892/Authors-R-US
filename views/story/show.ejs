@@ -36,11 +36,15 @@
 			<p><%=comment.text%></p>
 		</blockquote>
 	<p>Written by:<%=comment.user.username%></p>
+
+<% if (userId == comment.user._id) {%>
 	<a href="/comments/<%=comment._id%>/<%=story._id%>" title=""><small><small><small>(Edit Comment)</small></small></small></a>
 
 	<form method='POST' action='/comments/<%=story._id%>/<%=comment._id%>?_method=delete'>
 		<small><button class="btn btn-outline-warning"><small><small>Delete Comment</small></small></button></small>
 	</form>
+<% } %>
+
 <% }) %>
 
 

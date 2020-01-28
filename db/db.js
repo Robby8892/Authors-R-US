@@ -14,9 +14,7 @@ const mongdbURI = process.env.MONGODB_URI
 mongoose.connect(mongdbURI, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
-	useFindAndModify: false,
-	suppressWarning: true
-
+	useFindAndModify: false
 })
 
 mongoose.connection.on('connected', () => {
