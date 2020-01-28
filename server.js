@@ -12,7 +12,6 @@ const bodyParser = require('body-parser')
 const session = require('express-session')
 const bcrypt = require('bcrypt')
 
-
 //===============================================================================
 	// Middleware
 //===============================================================================
@@ -33,6 +32,7 @@ app.use((req, res, next) => {
 		res.locals.loggedIn = req.session.loggedIn
 		res.locals.username = req.session.username
 		res.locals.userId = req.session.userId
+		res.locals.author = req.session.author
 
 	} else {
 		res.locals.username = false
@@ -110,6 +110,7 @@ app.post('/', async (req, res) => {
 			dob: req.body.dob
 		})
 		req.session.loggedIn = true
+		req.session.author = createdUser.author
 		req.session.userId = createdUser._id
 		req.session.username = createdUser.username
 		req.session.message = `Thank you for signing up, please login ${desiredUsername} .`
@@ -135,6 +136,7 @@ app.post('/users', async (req, res) => {
 			req.session.loggedIn = true
 			req.session.userId = user._id
 			req.session.username = user.username
+			req.session.author = user.author
 
 			res.redirect('/stories')
 		} else {

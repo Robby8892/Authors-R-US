@@ -4,6 +4,8 @@ const router = express.Router()
 const User = require('../models/user.js')
 const Story = require('../models/story.js')
 
+const checkAuthorAuth = require('../lib/checkAuthorAuth.js')
+
 
 router.get('/:id', async (req, res, next) => {
 	try {
@@ -14,9 +16,10 @@ router.get('/:id', async (req, res, next) => {
 			userInput: userInput
 		})
 
+		console.log(req.session.author);
 		// profilePhoto: // user add profile photo
 
-	}catch(err){
+	}catch(err) {
 		next(err)
 	}
 })
@@ -31,13 +34,13 @@ router.get('/', async (req,res,next) => {
 		console.log(foundUsers);
 		res.render('user/index.ejs', { users: foundUsers})
 
-	}catch(err){
+	}catch(err) {
 		next(err)
 	}
 
 })
 
-router.get('/stories/:id', async (req,res,next) => {
+router.get('/stories/:id', checkAuthorAuth, async (req,res,next) => {
 	try {
 
 		const foundStories = await Story.find({ user: req.session.userId}).populate('user')
@@ -45,7 +48,7 @@ router.get('/stories/:id', async (req,res,next) => {
 			stories: foundStories
 		})
 
-	}catch(err){
+	}catch(err) {
 		next(err)
 	}
 
@@ -58,7 +61,7 @@ router.get('/:id/edit', async (req,res,next) => {
 
 		res.render('user/edit.ejs', { user: userToEdit})
 
-	}catch(err){
+	}catch(err) {
 		next(err)
 	}
 
@@ -98,7 +101,6 @@ router.delete('/:id', async (req, res, next) => {
 		next(err)
 	}
 })
-
 
 
 

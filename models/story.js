@@ -5,7 +5,6 @@ const Comment = require('./comment')
 const Rating = require('./rating')
 
 const storySchema = mongoose.Schema({
-
 	title: {
 		type: String,
 		required: true
@@ -29,7 +28,6 @@ const storySchema = mongoose.Schema({
 	},
 	comments: [Comment.schema],
 	ratings: [Rating.schema]
-
 })
 
 const Story = mongoose.model('Story', storySchema)

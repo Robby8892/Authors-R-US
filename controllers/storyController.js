@@ -3,6 +3,8 @@ const router = express.Router()
 
 const Story = require('../models/story.js')
 
+const checkAuthorAuth = require('../lib/checkAuthorAuth.js')
+
 router.get('/', async (req, res, next) => {
 	try {
 		// This will find all the stories written by users who don't share the userId
@@ -12,7 +14,7 @@ router.get('/', async (req, res, next) => {
 		stories: foundStories
 		})
 
-	}catch(err){
+	}catch(err) {
 		next(err)
 	}
 })
@@ -26,20 +28,19 @@ router.get('/users/:userId', async (req,res,next) => {
 
 		res.render('story/index.ejs', {stories: userStories})
 
-	}catch(err){
+	}catch(err) {
 		next(err)
 	}
 
-	})
+})
 
 
-router.get('/new', async (req,res,next) => {
+router.get('/new', checkAuthorAuth, async (req,res,next) => {
 	try {
 
 		res.render('story/new.ejs')
 
-
-	}catch(err){
+	}catch(err) {
 		next(err)
 	}
 
@@ -68,14 +69,10 @@ router.get('/:id', async (req, res, next) => {
 			downVote: downVote
 		})
 
-	}catch(err){
+	}catch(err) {
 		next(err)
 	}
 })
-
-
-
-
 
 
 router.get('/:id/edit', async (req,res,next) => {
@@ -103,7 +100,7 @@ router.post('/new', async (req,res,next) => {
 
 	const createdStory = await Story.create(newStory)
 
-	res.redirect('/users/stories/myStories')
+	res.redirect('/users/stories/' + req.session.userId)
 
 	}catch(err){
 		next(err)
@@ -136,7 +133,6 @@ router.delete('/:id', async (req,res,next) => {
 		next(err)
 	}
 })
-
 
 
 
