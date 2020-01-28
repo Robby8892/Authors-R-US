@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 
-const Comment = require('./comment.js')
+const Comment = require('./comment')
+
+const Rating = require('./rating')
 
 const storySchema = mongoose.Schema({
 
@@ -25,7 +27,8 @@ const storySchema = mongoose.Schema({
 		ref: 'User',
 		required: true
 	},
-	comments: [Comment.schema]
+	comments: [Comment.schema],
+	ratings: [Rating.schema]
 
 })
 

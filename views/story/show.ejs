@@ -1,5 +1,9 @@
 <%-include('../partials/header.ejs')%>
-
+	
+	<form method='POST' action='/ratings/<%= story._id%>'>
+		<button class="btn btn-outline-success" style="font-size: 0.8em;"name='vote' value="true">👍</button> vote!
+		<button class="btn btn-outline-danger" style="font-size: 0.8em" name='vote' value="false">👎</button>
+	</form>
 
 	<h1><%=story.title%></h1>
 	<h3><%=story.genre%></h3>
@@ -13,28 +17,31 @@
 	
 	<form method='POST' action="/stories/<%=story._id%>?_method=delete"><button class="btn btn-danger">Delete Story</button></form>
 
-<%} %>
+<% } %>
 
 <br>
 
 <form method='POST' action='/comments/<%=story._id%>'>
 	<label for="comment"></label>
-	<textarea class='test' name='text' id='comment' rows="4" cols="40" spellcheck="true" required minlength="1" required minlength="1000" placeholder='Enter Your Review'  ></textarea>
-	<button class="btn btn-warning" >Post Comment</button>
+	<textarea name='text' id='comment' rows="4" cols="40" spellcheck="true" required minlength="1" required minlength="1000" placeholder='Enter Your Review'></textarea>
+	<button class="btn btn-warning">Post Comment</button>
+
 </form>
 
 
 
 <% story.comments.forEach((comment) => { %>
+
 		<blockquote class='comment-block'>
 			<p><%=comment.text%></p>
 		</blockquote>
 	<p>Written by:<%=comment.user.username%></p>
 	<a href="/comments/<%=comment._id%>/<%=story._id%>" title=""><small><small><small>(Edit Comment)</small></small></small></a>
+
 	<form method='POST' action='/comments/<%=story._id%>/<%=comment._id%>?_method=delete'>
 		<small><button class="btn btn-outline-warning"><small><small>Delete Comment</small></small></button></small>
 	</form>
- <% }) %>
+<% }) %>
 
 
 
