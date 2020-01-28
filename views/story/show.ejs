@@ -1,5 +1,13 @@
 <%-include('../partials/header.ejs')%>
+	
+	<form method='POST' action='/ratings/<%= story._id%>'>
+		<button name='vote' value="true">(UpVote)</button>
+		<button name='vote' value="<%`${false}`%>">(DownVote)</button>
+	</form>
 
+<!-- 	<form>
+		<button>(DownVote)</button>
+	</form> -->
 
 	<h1><%=story.title%></h1>
 	<h3><%=story.genre%></h3>
@@ -13,23 +21,23 @@
 	
 	<form method='POST' action="/stories/<%=story._id%>?_method=delete"><button class="btn btn-danger">Delete Story</button></form>
 
-<%} %>
+<% } %>
 
 <form method='POST' action='/comments/<%=story._id%>'>
 	<label for="comment"></label>
-	<textarea name='text' id='comment' rows="4" cols="40" spellcheck="true" required minlength="1" required minlength="1000" placeholder='Enter Your Review'  ></textarea>
-	<button class="btn btn-warning" >Post Comment</button>
+	<textarea name='text' id='comment' rows="4" cols="40" spellcheck="true" required minlength="1" required minlength="1000" placeholder='Enter Your Review'></textarea>
+	<button class="btn btn-warning">Post Comment</button>
 </form>
 
 <% story.comments.forEach((comment) => { %>
-		<blockquote class='comment-block'>
-			<p><%=comment.text%></p>
-		</blockquote>
-	<p>Written by:<%=comment.user.username%></p>
+	<blockquote class='comment-block'>
+		<p><%=comment.text%></p>
+	</blockquote>
+	<p>Written by: <%=comment.user.username%></p>
 	<form method='POST' action='/comments/<%=story._id%>/<%=comment._id%>?_method=delete'>
 		<small><button class="btn btn-outline-warning"><small><small>Delete Comment</small></small></button></small>
 	</form>
- <% }) %>
+<% }) %>
 
 
 <%-include('../partials/footer.ejs')%>
