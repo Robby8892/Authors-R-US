@@ -26,9 +26,6 @@ app.use(session({
 
 // local session data
 
-const checkComments = require('./lib/checkComments.js')
-
-
 
 app.use((req, res, next) => {
 	

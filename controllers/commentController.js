@@ -6,9 +6,9 @@ const Story = require('../models/story.js')
 
 // custom authorization middleware
 const checkAuthorAuth = require('../lib/checkAuthorAuth.js')
-const requireAuth = require('../lib/requireAuth.js')
 
-router.use(requireAuth)
+
+
 
 
 router.get('/:commentId/:storyId', async (req,res,next) => {
@@ -30,7 +30,7 @@ router.get('/:commentId/:storyId', async (req,res,next) => {
 		next(err)
 	}
 
-	})
+})
 
 
 
@@ -46,6 +46,39 @@ router.post('/:storyId', async (req,res,next) => {
 		foundStory.comments.push(userComment)
 		await foundStory.save()
 
+
+		if(!req.session.author) {
+
+			const findComments = await Story.find()
+
+			const userComments = []
+
+			console.log(findComments);
+
+			findComments.forEach( async (stories) => {
+
+				stories.comments.forEach( async (comment) => {
+
+
+					if(comment.user == req.session.userId) {
+						userComments.push(comment)
+
+					}
+
+					if(userComments.length == 10) {
+
+						const updateAsAuthor = {
+							author: true 
+						}
+
+						const findUser = await User.findByIdAndUpdate(req.session.userId, updateAsAuthor)
+						console.log(findUser);
+					}
+				})
+			})
+		}
+
+
 		res.redirect('/stories/' + req.params.storyId)
 
 
@@ -60,18 +93,18 @@ router.delete('/:storyId/:commentId', async (req,res,next) => {
 	try {
 		const foundStory = await Story.findById(req.params.storyId)
 
-			foundStory.comments.id(req.params.commentId).remove()
-			await foundStory.save()
+		foundStory.comments.id(req.params.commentId).remove()
+		await foundStory.save()
 
 
-			res.redirect('/stories/' + req.params.storyId)
+		res.redirect('/stories/' + req.params.storyId)
 
 
 	}catch(err){
 		next(err)
 	}
 
-	})
+})
 
 router.put('/:commentId/:storyId', async (req,res,next) => {
 	try {
@@ -90,7 +123,7 @@ router.put('/:commentId/:storyId', async (req,res,next) => {
 		next(err)
 	}
 
-	})
+})
 
 
 module.exports = router

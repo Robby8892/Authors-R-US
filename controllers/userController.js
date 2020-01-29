@@ -4,36 +4,13 @@ const router = express.Router()
 const User = require('../models/user.js')
 const Story = require('../models/story.js')
 
-// custom authorization middleware
 const checkAuthorAuth = require('../lib/checkAuthorAuth.js')
-const requireAuth = require('../lib/requireAuth.js')
 
-// enable code below once login route redirects to authController.
-// currently preventing user from logging in since login action idrects to /users
-// router.use(requireAuth)
+
 
 
 router.get('/:id', async (req, res, next) => {
 	try {
-
-			const findComments = await Story.find()
-
-			const checkUserLength = []
-
-			findComments.forEach((stories) => {
-				
-				stories.comments.forEach((comment) => {
-
-
-					if(comment.user == req.session.userId) {
-						checkUserLength.push(comment)
-					}
-				})
-			})
-
-			console.log(checkUserLength);
-			console.log(checkUserLength.length);
-
 
 		const userInput = req.params.id
 		const foundUser = await User.findById(req.params.id)
@@ -121,7 +98,6 @@ router.delete('/:id', async (req, res, next) => {
 		const deletedComments = await Story.updateMany({$pull:{'comments':{'user': req.session.userId}}})
 		const deletedStories = await Story.remove({ user: req.session.userId})
 		const deletedUser = await User.findByIdAndRemove(req.session.userId)
-		await req.session.destroy()
 
 		res.redirect('/')
 	} catch(err) {

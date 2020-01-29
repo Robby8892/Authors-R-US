@@ -6,9 +6,8 @@ const Story = require('../models/story')
 
 // custom authorization middleware
 const checkAuthorAuth = require('../lib/checkAuthorAuth.js')
-const requireAuth = require('../lib/requireAuth.js')
 
-router.use(requireAuth)
+
 
 router.post('/:storyId', async (req,res,next) => {
 	try {
