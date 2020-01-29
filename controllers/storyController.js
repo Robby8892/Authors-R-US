@@ -111,6 +111,7 @@ router.put('/:id/edit', async (req, res, next) => {
 			genre: req.body.genre,
 			body: req.body.body
 		}
+
 		const updatedStory = await Story.findByIdAndUpdate(req.params.id, userUpdatedStory)
 
 		res.redirect('/stories/' + req.params.id )

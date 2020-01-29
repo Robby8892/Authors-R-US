@@ -1,5 +1,5 @@
 body { 
-	background-color: floralwhite;
+	background-color: lavenderBlush;
 	width: 95%;
 	margin: 0 auto;
  }
@@ -63,5 +63,9 @@ a:hover{
 .story-body {
 	overflow-wrap: break-word;
 	width: 90%;
+}
+
+.story-body textarea {
+	background-color: floralwhite;
 }
 
