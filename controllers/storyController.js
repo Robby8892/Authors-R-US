@@ -35,14 +35,10 @@ router.get('/users/:userId', async (req,res,next) => {
 })
 
 
-router.get('/new', checkAuthorAuth, async (req,res,next) => {
-	try {
+router.get('/new', checkAuthorAuth,  (req,res,next) => {
+	
 
-		res.render('story/new.ejs')
-
-	}catch(err) {
-		next(err)
-	}
+	res.render('story/new.ejs')
 
 })
 
@@ -127,7 +123,7 @@ router.put('/:id/edit', async (req, res, next) => {
 router.delete('/:id', async (req,res,next) => {
 	try {
 		const deletedStory = await Story.findByIdAndRemove(req.params.id)
-		res.redirect('/users/stories/myStories')
+		res.redirect('/users/stories/' + req.params.id)
 
 	}catch(err){
 		next(err)

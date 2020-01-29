@@ -25,6 +25,11 @@ app.use(session({
 }))
 
 // local session data
+
+const checkComments = require('./lib/checkComments.js')
+
+
+
 app.use((req, res, next) => {
 	
 	if(req.session.loggedIn) {
@@ -87,7 +92,7 @@ app.post('/', async (req, res) => {
 //	// Stretch: More logic and change with placeholders using session/locals
 	// query results: If username is or is not found
 	if(userAlreadyExists) {
-		req.session.message = `Username ${desiredUsername} already taken`
+		req.locals.message = `Username ${desiredUsername} already taken`
 
 		res.redirect('/')
 	// create user

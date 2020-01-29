@@ -9,6 +9,26 @@ const checkAuthorAuth = require('../lib/checkAuthorAuth.js')
 
 router.get('/:id', async (req, res, next) => {
 	try {
+
+			const findComments = await Story.find()
+
+			const checkUserLength = []
+
+			findComments.forEach((stories) => {
+				
+				stories.comments.forEach((comment) => {
+
+
+					if(comment.user == req.session.userId) {
+						checkUserLength.push(comment)
+					}
+				})
+			})
+
+			console.log(checkUserLength);
+			console.log(checkUserLength.length);
+
+
 		const userInput = req.params.id
 		const foundUser = await User.findById(req.params.id)
 		res.render('user/show.ejs', {
@@ -16,7 +36,7 @@ router.get('/:id', async (req, res, next) => {
 			userInput: userInput
 		})
 
-		console.log(req.session.author);
+
 		// profilePhoto: // user add profile photo
 
 	}catch(err) {
