@@ -127,7 +127,7 @@ router.delete('/:id', async (req, res, next) => {
 		const deletedStories = await Story.remove({ user: req.session.userId})
 		const deletedUser = await User.findByIdAndRemove(req.session.userId)
 
-		res.redirect('/')
+		res.redirect('/logout')
 	} catch(err) {
 		next(err)
 	}

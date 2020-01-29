@@ -3,7 +3,9 @@
 
 	<h1><%=story.title%></h1>
 	<h3><%=story.genre%></h3>
-	<p><%=story.body%></p>
+	<div class="story-body">
+		<p><%=story.body%></p>
+	</div>
 
 
 
@@ -35,18 +37,18 @@
 
 <% story.comments.forEach((comment) => { %>
 
-		<blockquote class='comment-block'>
-			<p><%=comment.text%></p>
-		</blockquote>
+		<div class="comment-block">
+			<%=comment.text%>
+		</div>
 	<p>Written by:<%=comment.user.username%></p>
 
-<% if (userId == comment.user._id) {%>
-	<a href="/comments/<%=comment._id%>/<%=story._id%>" title=""><small><small><small>(Edit Comment)</small></small></small></a>
+	<% if (userId == comment.user._id) {%>
+		<a href="/comments/<%=comment._id%>/<%=story._id%>" title=""><small><small><small>(Edit Comment)</small></small></small></a>
 
-	<form method='POST' action='/comments/<%=story._id%>/<%=comment._id%>?_method=delete'>
-		<small><button class="btn btn-outline-warning"><small><small>Delete Comment</small></small></button></small>
-	</form>
-<% } %>
+		<form method='POST' action='/comments/<%=story._id%>/<%=comment._id%>?_method=delete'>
+			<small><button class="btn btn-outline-warning"><small><small>Delete Comment</small></small></button></small>
+		</form>
+	<% } %>
 
 <% }) %>
 

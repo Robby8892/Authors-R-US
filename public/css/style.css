@@ -1,29 +1,67 @@
 body { 
-	background-color: LemonChiffon;
-	background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9o0kyBZ1qkkCj99HW6YjZUI-3fJJXEk5lBT0eX84VG4U7jnhkJQ&s);
-	background-size: 100%;
+	background-color: floralwhite;
+	width: 95%;
+	margin: 0 auto;
  }
 
-
-#login-container {
-	display: flex;
-
-
+.home {
+	width: 100%;
+	background-color: ghostwhite;
+	border: 6px solid lightblue;
+}
+.home h1 {
+	margin: 0;
+	margin-right: 50%;
+	display: inline;
 }
 
+#login-container {
+	display: inline-block;
+	width: 20%;
+	/*position: absolute;*/
+	background-color: ghostwhite;
+	/*border: 0.5em solid lightblue;*/
+	right: 0;
+	margin: 10px;
+}
 
- #register-container {
- 	display: flex;
- }
+header, footer{
+	text-align: center;
+	background-color: ghostwhite;
+	margin-bottom: 0;
+	border: 6px solid lightblue;
+  	border-radius: 4px;
+}
+a:hover{
+	color: blue;
+	text-decoration: none;
+}
 
-
- #edit-profile-container {
- 	
- }
-
- .comment-block {
- 	background-color: LightSkyBlue;
+#register-container {
  	width: 15%;
+ 	margin-bottom: 1%;
+ 	background-color: ghostwhite;
+	border: 6px solid lightblue;
+ }
+
+#register-form input {
+ 	display: block;
+ 	margin-bottom: 10px;
+ }
+
+.comment-block {
+	display: inline-block;
+	max-width: 50%;
+	overflow: scroll;
+ 	background-color: LightSkyBlue;
+ 	overflow-wrap: break-word;
+ 	width: 50%;
  	height: 100px;
  	box-shadow: 10px 5px 5px GoldenRod;
  }
+
+.story-body {
+	overflow-wrap: break-word;
+	width: 90%;
+}
+
