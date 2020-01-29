@@ -101,6 +101,7 @@ router.delete('/:id', async (req, res, next) => {
 		const deletedComments = await Story.updateMany({$pull:{'comments':{'user': req.session.userId}}})
 		const deletedStories = await Story.remove({ user: req.session.userId})
 		const deletedUser = await User.findByIdAndRemove(req.session.userId)
+		await req.session.destroy()
 
 		res.redirect('/')
 	} catch(err) {
