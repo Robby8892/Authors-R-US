@@ -4,6 +4,12 @@ const router = express.Router()
 const Comment = require('../models/comment.js')
 const Story = require('../models/story.js')
 
+// custom authorization middleware
+const checkAuthorAuth = require('../lib/checkAuthorAuth.js')
+const requireAuth = require('../lib/requireAuth.js')
+
+router.use(requireAuth)
+
 
 router.get('/:commentId/:storyId', async (req,res,next) => {
 	try {

@@ -4,6 +4,12 @@ const router = express.Router()
 const Rating = require('../models/rating')
 const Story = require('../models/story')
 
+// custom authorization middleware
+const checkAuthorAuth = require('../lib/checkAuthorAuth.js')
+const requireAuth = require('../lib/requireAuth.js')
+
+router.use(requireAuth)
+
 router.post('/:storyId', async (req,res,next) => {
 	try {
 		const foundStory = await Story.findById(req.params.storyId).populate('ratings.user')
