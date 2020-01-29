@@ -49,13 +49,15 @@ router.post('/:storyId', async (req,res,next) => {
 
 // we will want to make this custom middleware so that  we aren't having this much code on our commentController &
 // our userController 
-		if(!req.session.author) {
 
-			const findComments = await Story.find()
+		
+
+		if(!req.session.author) {
 
 			const userComments = []
 
-			console.log(findComments);
+			const findComments = await Story.find()
+
 
 			findComments.forEach( async (stories) => {
 
@@ -63,25 +65,27 @@ router.post('/:storyId', async (req,res,next) => {
 
 
 					if(comment.user == req.session.userId) {
+							
 						userComments.push(comment)
 
-						const userTotalComments = userComments.length
-
 					}
 
-					if(userComments.length == 10) {
-
-						const updateAsAuthor = {
-							author: true 
-						}
-
-						const findUser = await User.findByIdAndUpdate(req.session.userId, updateAsAuthor)
-						console.log(findUser);
-						req.session.author = findUser.author
-					}
 				})
 			})
+
+			if (userComments.length == 10) {
+
+				const updateAsAuthor = {
+				author: true 
+				}
+
+				const findUser = await User.findByIdAndUpdate(req.session.userId, updateAsAuthor)
+
+				req.session.author = true
+			}
 		}
+					
+
 
 
 		res.redirect('/stories/' + req.params.storyId)

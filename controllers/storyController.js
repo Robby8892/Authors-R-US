@@ -27,8 +27,6 @@ router.get('/users/:userId', async (req,res,next) => {
 	try {
 		const userStories = await Story.find({user: req.params.userId}).populate('user')
 
-		console.log(userStories);
-
 		res.render('story/index.ejs', {stories: userStories})
 
 	}catch(err) {

@@ -11,7 +11,8 @@ const checkAuthorAuth = require('../lib/checkAuthorAuth.js')
 
 router.get('/:id', async (req, res, next) => {
 	try {
-
+		console.log(`This is the session ${req.session.author}`);
+		// console.log(`This is the opposite of the session ${!req.session.author}`);
 		// we will want to make this custom middleware so that  we aren't having this much code on our commentController &
 		// our userController 
 		if(!req.session.author) {
@@ -27,24 +28,19 @@ router.get('/:id', async (req, res, next) => {
 
 					if(comment.user == req.session.userId) {
 						userComments.push(comment)
-						console.log(userComments);
 
 
 					}
-						// if(userComments.length == null) {
-						// 	req.session.UserTotalComments = 0
-
-						// } else {
-							req.session.UserTotalComments = userComments.length
-						// }
+					req.session.UserTotalComments = userComments.length
 				})
 			})
 		}
 
 
-
 		const userInput = req.params.id
 		const foundUser = await User.findById(req.params.id)
+
+
 		res.render('user/show.ejs', {
 			user: foundUser,
 			userInput: userInput,

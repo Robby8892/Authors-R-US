@@ -89,7 +89,7 @@ app.post('/', async (req, res) => {
 //	// Stretch: More logic and change with placeholders using session/locals
 	// query results: If username is or is not found
 	if(userAlreadyExists) {
-		req.locals.message = `Username ${desiredUsername} already taken`
+		req.session.message = `Username ${desiredUsername} already taken`
 
 		res.redirect('/')
 	// create user
