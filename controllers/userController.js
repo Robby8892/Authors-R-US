@@ -12,11 +12,44 @@ const checkAuthorAuth = require('../lib/checkAuthorAuth.js')
 router.get('/:id', async (req, res, next) => {
 	try {
 
+		// we will want to make this custom middleware so that  we aren't having this much code on our commentController &
+		// our userController 
+		if(!req.session.author) {
+
+			const findComments = await Story.find()
+
+			let userComments = []
+
+			findComments.forEach( async (stories) => {
+
+				stories.comments.forEach( async (comment) => {
+
+
+					if(comment.user == req.session.userId) {
+						userComments.push(comment)
+						console.log(userComments);
+
+
+					}
+						// if(userComments.length == null) {
+						// 	req.session.UserTotalComments = 0
+
+						// } else {
+							req.session.UserTotalComments = userComments.length
+						// }
+				})
+			})
+		}
+
+
+
 		const userInput = req.params.id
 		const foundUser = await User.findById(req.params.id)
 		res.render('user/show.ejs', {
 			user: foundUser,
-			userInput: userInput
+			userInput: userInput,
+			totalComments: req.session.UserTotalComments
+
 		})
 
 
@@ -34,7 +67,6 @@ router.get('/', async (req,res,next) => {
 		// here we will render a list of all authors on the site not including 
 		// the person logged in
 		const foundUsers = await User.find({ $nor: [ { _id: req.session.userId}]})
-		console.log(foundUsers);
 		res.render('user/index.ejs', { users: foundUsers})
 
 	}catch(err) {

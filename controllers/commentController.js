@@ -3,6 +3,7 @@ const router = express.Router()
 
 const Comment = require('../models/comment.js')
 const Story = require('../models/story.js')
+const User = require('../models/user.js')
 
 // custom authorization middleware
 const checkAuthorAuth = require('../lib/checkAuthorAuth.js')
@@ -46,7 +47,8 @@ router.post('/:storyId', async (req,res,next) => {
 		foundStory.comments.push(userComment)
 		await foundStory.save()
 
-
+// we will want to make this custom middleware so that  we aren't having this much code on our commentController &
+// our userController 
 		if(!req.session.author) {
 
 			const findComments = await Story.find()
@@ -63,6 +65,8 @@ router.post('/:storyId', async (req,res,next) => {
 					if(comment.user == req.session.userId) {
 						userComments.push(comment)
 
+						const userTotalComments = userComments.length
+
 					}
 
 					if(userComments.length == 10) {
@@ -73,6 +77,7 @@ router.post('/:storyId', async (req,res,next) => {
 
 						const findUser = await User.findByIdAndUpdate(req.session.userId, updateAsAuthor)
 						console.log(findUser);
+						req.session.author = findUser.author
 					}
 				})
 			})

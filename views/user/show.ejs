@@ -4,6 +4,10 @@
 	<h2>Your profile page</h2>
 	<a href="/users/<%= user._id%>/edit" title=""><small>Edit profile</small></a>
 
+<% if(!author) { %> 
+	<p>To become an Author you must make a total of 10 comments between all stories.</p>
+	<p>You currently have <%=totalComments%> out 10</p>
+<% } %>
 	<!-- enter user.description? below -->
 	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
