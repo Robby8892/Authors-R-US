@@ -4,7 +4,13 @@ const router = express.Router()
 const User = require('../models/user.js')
 const Story = require('../models/story.js')
 
+// custom authorization middleware
 const checkAuthorAuth = require('../lib/checkAuthorAuth.js')
+const requireAuth = require('../lib/requireAuth.js')
+
+// enable code below once login route redirects to authController.
+// currently preventing user from logging in since login action idrects to /users
+// router.use(requireAuth)
 
 
 router.get('/:id', async (req, res, next) => {
