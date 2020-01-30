@@ -58,7 +58,7 @@ router.get('/:id', async (req, res, next) => {
 router.get('/photo/:id', async (req,res,next) => {
 	try {
 
-		const foundUserPhoto = await User.findById(req.session.userId)
+		const foundUserPhoto = await User.findById(req.params.id)
 		res.set('Content-Type', foundUserPhoto.profilePhoto.contentType)
 		res.send(foundUserPhoto.profilePhoto.data)
 
