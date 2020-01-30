@@ -45,13 +45,12 @@ a:hover{
  	width: 17%;
  	margin-bottom: 1%;
  	background-color: ghostwhite;
-
- }
+}
 
 #register-form input {
  	display: block;
  	margin-bottom: 10px;
- }
+}
 
 .comment-block {
 	display: inline-block;
@@ -62,7 +61,7 @@ a:hover{
  	width: 50%;
  	height: 100px;
  	box-shadow: 10px 5px 5px GoldenRod;
- }
+}
 
 .story-body {
 	overflow-wrap: break-word;

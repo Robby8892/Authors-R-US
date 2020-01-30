@@ -7,8 +7,6 @@ const Story = require('../models/story')
 // custom authorization middleware
 const checkAuthorAuth = require('../lib/checkAuthorAuth.js')
 
-
-
 router.post('/:storyId', async (req,res,next) => {
 	try {
 		const foundStory = await Story.findById(req.params.storyId).populate('ratings.user')
@@ -36,7 +34,6 @@ router.post('/:storyId', async (req,res,next) => {
 		next(err)
 	}
 })
-
 
 
 module.exports = router

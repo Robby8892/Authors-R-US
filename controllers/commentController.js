@@ -9,32 +9,22 @@ const User = require('../models/user.js')
 // custom authorization middleware
 const checkAuthorAuth = require('../lib/checkAuthorAuth.js')
 
-
-
-
-
 router.get('/:commentId/:storyId', async (req,res,next) => {
 	try {
 
 		const foundStory = await Story.findById(req.params.storyId).populate('comments.user')
 
-
 		const foundComment = foundStory.comments.id(req.params.commentId)
-
-
 
 		res.render('comment/edit.ejs', {
 			comment: foundComment, 
 			story: foundStory
-		})
+			})
 
 	}catch(err){
 		next(err)
 	}
-
 })
-
-
 
 router.post('/:storyId', async (req,res,next) => {
 	try {
@@ -43,15 +33,13 @@ router.post('/:storyId', async (req,res,next) => {
 		const userComment = {
 			text: req.body.text,
 			user: res.locals.userId
-		}
+			}
 
 		foundStory.comments.push(userComment)
 		await foundStory.save()
 
-// we will want to make this custom middleware so that  we aren't having this much code on our commentController &
-// our userController 
-
-		
+		// we will want to make this custom middleware so that  we aren't having this much code on our commentController &
+		// our userController 
 
 		if(!req.session.author) {
 
@@ -59,18 +47,14 @@ router.post('/:storyId', async (req,res,next) => {
 
 			const findComments = await Story.find()
 
-
 			findComments.forEach( async (stories) => {
 
 				stories.comments.forEach( async (comment) => {
 
-
 					if(comment.user == req.session.userId) {
 							
 						userComments.push(comment)
-
 					}
-
 				})
 			})
 
@@ -85,19 +69,14 @@ router.post('/:storyId', async (req,res,next) => {
 				req.session.author = true
 			}
 		}
-					
-
-
 
 		res.redirect('/stories/' + req.params.storyId)
-
 
 	}catch(err){
 		next(err)
 	}
 
 })
-
 
 router.delete('/:storyId/:commentId', async (req,res,next) => {
 	try {
@@ -106,14 +85,11 @@ router.delete('/:storyId/:commentId', async (req,res,next) => {
 		foundStory.comments.id(req.params.commentId).remove()
 		await foundStory.save()
 
-
 		res.redirect('/stories/' + req.params.storyId)
-
 
 	}catch(err){
 		next(err)
 	}
-
 })
 
 router.put('/:commentId/:storyId', async (req,res,next) => {
@@ -132,7 +108,6 @@ router.put('/:commentId/:storyId', async (req,res,next) => {
 	}catch(err){
 		next(err)
 	}
-
 })
 
 

@@ -5,7 +5,6 @@ const app = express()
 const User = require('./models/user')
 const multer = require('multer')
 
-
 const PORT = process.env.PORT
 
 // middleware modules
@@ -30,10 +29,7 @@ const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
 
 // local session data
-
-
 app.use((req, res, next) => {
-	
 	if(req.session.loggedIn) {
 		//local = session
 		res.locals.loggedIn = req.session.loggedIn
@@ -91,7 +87,6 @@ app.post('/', upload.single('profilePhoto'), async (req, res) => {
 		username: desiredUsername
 		})
 
-//	// Stretch: More logic and change with placeholders using session/locals
 	// query results: If username is or is not found
 	if(userAlreadyExists) {
 		req.session.message = `Username ${desiredUsername} already taken`
@@ -108,7 +103,6 @@ app.post('/', upload.single('profilePhoto'), async (req, res) => {
 			// 	// Store hash in your password DB.
 			// })
 
-;
 		const createdUser = await User.create({
 			username: desiredUsername,
 			// change to async

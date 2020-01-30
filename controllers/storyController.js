@@ -6,8 +6,6 @@ const Story = require('../models/story.js')
 // custom authorization middleware
 const checkAuthorAuth = require('../lib/checkAuthorAuth.js')
 
-
-
 router.get('/', async (req, res, next) => {
 	try {
 		// This will find all the stories written by users who don't share the userId
@@ -22,7 +20,6 @@ router.get('/', async (req, res, next) => {
 	}
 })
 
-
 router.get('/users/:userId', async (req,res,next) => {
 	try {
 		const userStories = await Story.find({user: req.params.userId}).populate('user')
@@ -35,10 +32,8 @@ router.get('/users/:userId', async (req,res,next) => {
 
 })
 
-
 router.get('/new', checkAuthorAuth,  (req,res,next) => {
 	
-
 	res.render('story/new.ejs')
 
 })
@@ -71,7 +66,6 @@ router.get('/:id', async (req, res, next) => {
 	}
 })
 
-
 router.get('/:id/edit', async (req,res,next) => {
 	try {
 		const storyToEdit = await Story.findById(req.params.id)
@@ -84,7 +78,6 @@ router.get('/:id/edit', async (req,res,next) => {
 	}
 
 })
-
 
 router.post('/new', async (req,res,next) => {
 	try {
@@ -120,7 +113,6 @@ router.put('/:id/edit', async (req, res, next) => {
 		next(err)
 	}
 })
-
 
 router.delete('/:id', async (req,res,next) => {
 	try {
