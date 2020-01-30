@@ -8,14 +8,18 @@
 
 		<legend>Update Profile</legend>
 			<label for="profilePhoto">Profile Photo: </label>
+<<<<<<< HEAD
+			<input type="file" name="profilePhoto" required minlength="1" >
+=======
 			<!-- include value of current photo to prevent error when not specified? -->
 			<input type="file" name="profilePhoto">
+>>>>>>> 117fc0bd7dca4f26e7f7642fafec6171226867f0
 			<label for="firstName">First Name: </label>
 			<input class="form-control" id='firstName' type="text" name="firstName" value="<%= user.firstName%>" required minlength="1">
 			<label for="lastName">Last Name: </label>
 			<input class="form-control" id='lastName' type="text" name="lastName" value="<%= user.lastName%>" required minlength="1">
 			<label for="email">Email: </label>
-			<input class="form-control" id='email' type="text" name="email" value="<%= user.email%>" required minlength="1">
+			<input class="form-control" id='email' type="email" name="email" value="<%= user.email%>" required minlength="1">
 			<label for="dob">Date of Birth: </label>
 			<input class="form-control" type="text" name="dob" value="<%= user.dob.toLocaleDateString()%>" required minlength="8">
 			<label for="description">Your Description: </label>
