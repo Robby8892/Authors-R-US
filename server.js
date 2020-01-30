@@ -3,6 +3,8 @@ require('./db/db.js')
 const express = require('express')
 const app = express()
 const User = require('./models/user')
+const multer = require('multer')
+
 
 const PORT = process.env.PORT
 
@@ -23,6 +25,9 @@ app.use(session({
 	resave: false,
 	saveUninitialized: false
 }))
+
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage })
 
 // local session data
 
@@ -77,7 +82,7 @@ app.get('/', (req, res) => {
 })
 
 // register form: POST /
-app.post('/', async (req, res) => {
+app.post('/', upload.single('profilePhoto'), async (req, res) => {
 
 	const desiredUsername = req.body.username
 	const desiredPassword = req.body.password
@@ -102,6 +107,8 @@ app.post('/', async (req, res) => {
 			// bcrypt.hash(desiredPassword, 10).then(function(hash) {
 			// 	// Store hash in your password DB.
 			// })
+
+;
 		const createdUser = await User.create({
 			username: desiredUsername,
 			// change to async
@@ -109,7 +116,11 @@ app.post('/', async (req, res) => {
 			firstName: req.body.firstName,
 			lastName: req.body.lastName,
 			email: req.body.email,
-			dob: req.body.dob
+			dob: req.body.dob,
+			profilePhoto: {
+				data: req.file.buffer,
+				contentType: req.file.mimetype
+			}
 		})
 		req.session.loggedIn = true
 		req.session.author = createdUser.author

@@ -4,9 +4,11 @@
 
 
 <div id='edit-profile-container'>
-	<form id='register-form' method="POST" action="/users/<%= user._id%>/edit?_method=PUT">
+	<form id='register-form' method="POST" enctype="multipart/form-data" action="/users/<%= user._id%>/edit?_method=PUT">
 
 		<legend>Update Profile</legend>
+			<label for="profilePhoto">Profile Photo: </label>
+			<input type="file" name="profilePhoto">
 			<label for="firstName">First Name: </label>
 			<input class="form-control" id='firstName' type="text" name="firstName" value="<%= user.firstName%>" required minlength="1">
 			<label for="lastName">Last Name: </label>
@@ -15,6 +17,8 @@
 			<input class="form-control" id='email' type="text" name="email" value="<%= user.email%>" required minlength="1">
 			<label for="dob">Date of Birth: </label>
 			<input class="form-control" type="text" name="dob" value="<%= user.dob.toLocaleDateString()%>" required minlength="8">
+			<label for="description">Your Description: </label>
+			<textarea style="overflow-wrap: break-word" class='form-control' id='description' name="description" required minlength="1"  ></textarea>
 			<button class="btn btn-success">Edit Profile</button>
 	</form>
 </div>

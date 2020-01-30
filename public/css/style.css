@@ -54,8 +54,8 @@ a:hover{
 .comment-block {
 	display: inline-block;
 	max-width: 50%;
-	overflow: scroll;
- 	background-color: LightSkyBlue;
+	overflow: auto;
+ 	background-color: lightblue;
  	overflow-wrap: break-word;
  	width: 50%;
  	height: 100px;
@@ -74,4 +74,8 @@ a:hover{
 .instruction {
 	font-size: 0.9em;
 }
+
+.user-img { 
+	max-width: 40%;
+ }
 

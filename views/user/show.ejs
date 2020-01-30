@@ -3,13 +3,13 @@
 <% if (userId == userInput) { -%>
 	<h2>Your profile page</h2>
 
+
 	<% if(!author) { %>  
 		<div class="instruction">
 			<p>To become an Author you must make a total of 10 comments between all stories.</p>
 			<p>You currently have <%=totalComments%> out 10</p>
 		</div>
 	<% } %>
-
 
 	<!-- enter user.description? below -->
 	
@@ -21,7 +21,7 @@
 <% } -%>
 
 	<div class="card" style="width: 18rem;">
-		<img src="">
+		<img class='user-img' src="/users/photo/<%=user._id%>">
 		<div class="card-body">
 			<h5>Username: <%=user.username%></h5>
 			<h6>First Name: <%=user.firstName%></h6>

@@ -30,6 +30,11 @@ const userSchema = mongoose.Schema({
 		default: Date.now()
 	},
 	profilePhoto: {
+		data: Buffer,
+		contentType: String
+
+	},
+	description: {
 		type: String,
 		default: ''
 	},

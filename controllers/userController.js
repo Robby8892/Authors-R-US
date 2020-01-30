@@ -3,16 +3,18 @@ const router = express.Router()
 
 const User = require('../models/user.js')
 const Story = require('../models/story.js')
+const multer = require('multer')
 
 const checkAuthorAuth = require('../lib/checkAuthorAuth.js')
 
 
-
+// We need have this middleware used here as well to access it on this controller 
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage })
 
 router.get('/:id', async (req, res, next) => {
 	try {
-		console.log(`This is the session ${req.session.author}`);
-		// console.log(`This is the opposite of the session ${!req.session.author}`);
+
 		// we will want to make this custom middleware so that  we aren't having this much code on our commentController &
 		// our userController 
 		if(!req.session.author) {
@@ -48,13 +50,23 @@ router.get('/:id', async (req, res, next) => {
 
 		})
 
-
-		// profilePhoto: // user add profile photo
-
 	}catch(err) {
 		next(err)
 	}
 })
+
+router.get('/photo/:id', async (req,res,next) => {
+	try {
+
+		const foundUserPhoto = await User.findById(req.session.userId)
+		res.set('Content-Type', foundUserPhoto.profilePhoto.contentType)
+		res.send(foundUserPhoto.profilePhoto.data)
+
+	}catch(err){
+		next(err)
+	}
+
+	})
 
 
 router.get('/', async (req,res,next) => {
@@ -99,7 +111,7 @@ router.get('/:id/edit', async (req,res,next) => {
 })
 
 
-router.put('/:id/edit', async (req, res, next) => {
+router.put('/:id/edit', upload.single('profilePhoto'), async (req, res, next) => {
 	try {
 
 		// stretch: password validation then choose new password
@@ -108,7 +120,11 @@ router.put('/:id/edit', async (req, res, next) => {
 			firstName: req.body.firstName,
 			lastName: req.body.lastName,
 			email: req.body.email,
-			dob: req.body.dob
+			dob: req.body.dob,
+			profilePhoto: {
+				data: req.file.buffer,
+				contentType: req.file.mimetype
+			}
 		}
 
 		const updatedProfile = await User.findByIdAndUpdate(req.params.id, userUpdatedProfile)
