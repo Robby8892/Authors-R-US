@@ -43,7 +43,6 @@ a:hover{
 #register-container {
 	display: flex;
  	width: 17%;
- 	height: 10%;
  	margin-bottom: 1%;
  	background-color: ghostwhite;
 
@@ -82,3 +81,6 @@ a:hover{
 	max-width: 40%;
  }
 
+ul {
+	list-style: none;
+}
