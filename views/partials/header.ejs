@@ -10,16 +10,16 @@
 <header>
 	
 <nav>
-	<ul>
+	<ul style="list-style: none">
 		<% if(!loggedIn) { %> 
-		<li class="btn btn-outline-warning" ><a href="/" title="">Login/Register</a></li>
+		<a href="/" title=""><button class="btn btn-outline-warning">Login/Register</button></a>
 		<%} else {%>
-		<li class="btn btn-outline-danger" ><a href="/users/<%= userId%>" title="">My profile</a></li>
-		<li class="btn btn-outline-danger" ><a href="/users/stories/<%= userId%>" title="">My Stories</a></li>
-		<li class="btn btn-outline-warning" ><a href="/users" title="">List of Authors</a></li>
-		<li class="btn btn-outline-danger" ><a href="/stories" title="">List of Stories</a></li>
-		<li class="btn btn-outline-danger" ><a href="/stories/new" title="">Create Story</a></li>
-		<li class="btn btn-outline-danger" ><a href="/logout" title="">Logout</a></li>
+		<li><a href="/users/<%= userId%>" title=""><button class="btn btn-outline-primary">My profile</button></a>
+		<a href="/users/stories/<%= userId%>" title=""><button class="btn btn-outline-success">My Stories</button></a>
+		<a href="/users" title=""><button class="btn btn-outline-primary">List of Authors</button></a>
+		<a href="/stories" title=""><button class="btn btn-outline-primary">List of Stories</button></a>
+		<a href="/stories/new" title=""><button class="btn btn-outline-success">Create Story</button></a>
+		<a href="/logout" title=""><button class="btn btn-outline-danger">Logout</button></a>
 		<%}%>
 	</ul>
 </nav>

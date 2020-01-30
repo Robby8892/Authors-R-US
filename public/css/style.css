@@ -1,5 +1,5 @@
 body { 
-	background-color: lavenderBlush;
+	background-color: rgba(255, 190, 190, 0.1);
 	width: 95%;
 	margin: 0 auto;
  }
@@ -7,33 +7,36 @@ body {
 .home {
 	width: 100%;
 	background-color: ghostwhite;
-	border: 6px solid lightblue;
+	border: 3px solid lightblue;
 }
-.home h1 {
+.home h1{
 	margin: 0;
 	margin-right: 50%;
-	display: inline;
+	display: inline-block;
 }
 
 #login-container {
 	display: inline-block;
 	width: 20%;
-	/*position: absolute;*/
 	background-color: ghostwhite;
-	/*border: 0.5em solid lightblue;*/
-	right: 0;
 	margin: 10px;
 }
 
-header, footer{
+header, footer {
 	text-align: center;
 	background-color: ghostwhite;
-	margin-bottom: 0;
-	border: 6px solid lightblue;
+	border: 3px solid lightblue;
   	border-radius: 4px;
 }
+footer li {
+	display: inline-block;
+}
+footer small {
+	position: left;
+}
+
 a:hover{
-	color: blue;
+	color: green;
 	text-decoration: none;
 }
 
@@ -41,7 +44,6 @@ a:hover{
  	width: 15%;
  	margin-bottom: 1%;
  	background-color: ghostwhite;
-	border: 6px solid lightblue;
  }
 
 #register-form input {
@@ -67,5 +69,9 @@ a:hover{
 
 .story-body textarea {
 	background-color: floralwhite;
+}
+
+.instruction {
+	font-size: 0.9em;
 }
 

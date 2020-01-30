@@ -2,35 +2,41 @@
 
 <% if (userId == userInput) { -%>
 	<h2>Your profile page</h2>
-	<a href="/users/<%= user._id%>/edit" title=""><small>Edit profile</small></a>
 
-<% if(!author) { %>  
-	<p>To become an Author you must make a total of 10 comments between all stories.</p>
-	<p>You currently have <%=totalComments%> out 10</p>
-<% } %>
+	<% if(!author) { %>  
+		<div class="instruction">
+			<p>To become an Author you must make a total of 10 comments between all stories.</p>
+			<p>You currently have <%=totalComments%> out 10</p>
+		</div>
+	<% } %>
+
+
 	<!-- enter user.description? below -->
-	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-	quis nostrud exercitation ullamco laboris nisi ut aliquip </p>
-	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	tempor incididunt ut labore et dolore magna aliqua. Ut en</p>
-	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	tempor incididunt ut labore et dolore magn </p>
-
-
-	<form method="POST" action="/users/<%= userId%>?_method=delete">
-		<button class='class="btn btn-danger'>Cancel Account</button>
-	</form>
 	
 <% } else { -%>
 
 	<h2><%=user.username%> Profile Page</h2>
 
-	<p><%= user.firstName%></p>
-	<p><%= user.lastName%></p>
-	<p><%= user.username%> joined Authors-R-Us on <%= user.createdOn.toLocaleDateString()%></p>
-
 	<a href="/stories/users/<%=user._id%>"><%= user.username%>'s Stories</a>
 <% } -%>
+
+	<div class="card" style="width: 18rem;">
+		<img src="">
+		<div class="card-body">
+			<h5>Username: <%=user.username%></h5>
+			<h6>First Name: <%=user.firstName%></h6>
+			<h6>Last Name: <%= user.lastName%></h6>
+			<h6>Email: <%= user.email%></h6>
+			<p class="card-text">joined Authors-R-Us on <%= user.createdOn.toLocaleDateString()%></p>
+			<% if (userId == userInput) { -%>
+				<a href="/users/<%= user._id%>/edit" title=""><small>Edit profile</small></a>
+				<form method="POST" action="/users/<%= userId%>?_method=delete">
+					<button class='class="btn btn-danger'>Cancel Account</button>
+				</form>
+			<% } -%>
+		</div>
+	</div>
+
+
 
 <%-include('../partials/footer.ejs')%>
