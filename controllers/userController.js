@@ -105,6 +105,7 @@ router.put('/:id/edit', upload.single('profilePhoto'), async (req, res, next) =>
 			lastName: req.body.lastName,
 			email: req.body.email,
 			dob: req.body.dob,
+			description: req.body.description,
 			profilePhoto: {
 				data: req.file.buffer,
 				contentType: req.file.mimetype

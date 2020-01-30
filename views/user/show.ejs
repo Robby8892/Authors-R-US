@@ -27,6 +27,7 @@
 			<h6>First Name: <%=user.firstName%></h6>
 			<h6>Last Name: <%= user.lastName%></h6>
 			<h6>Email: <%= user.email%></h6>
+			<textarea class="card-text" readonly>About: <%=user.description%></textarea>
 			<p class="card-text">joined Authors-R-Us on <%= user.createdOn.toLocaleDateString()%></p>
 			<% if (userId == userInput) { -%>
 				<a href="/users/<%= user._id%>/edit" title=""><small>Edit profile</small></a>
