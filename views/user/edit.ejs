@@ -8,6 +8,7 @@
 
 		<legend>Update Profile</legend>
 			<label for="profilePhoto">Profile Photo: </label>
+			<!-- include value of current photo to prevent error when not specified? -->
 			<input type="file" name="profilePhoto">
 			<label for="firstName">First Name: </label>
 			<input class="form-control" id='firstName' type="text" name="firstName" value="<%= user.firstName%>" required minlength="1">
@@ -18,7 +19,7 @@
 			<label for="dob">Date of Birth: </label>
 			<input class="form-control" type="text" name="dob" value="<%= user.dob.toLocaleDateString()%>" required minlength="8">
 			<label for="description">Your Description: </label>
-			<textarea style="overflow-wrap: break-word" class='form-control' id='description' name="description" required minlength="1"  ></textarea>
+			<textarea style="overflow-wrap: break-word" class='form-control' id='description' name="description"><%= user.description%></textarea>
 			<button class="btn btn-success">Edit Profile</button>
 	</form>
 </div>
