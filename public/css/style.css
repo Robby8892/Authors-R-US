@@ -41,9 +41,12 @@ a:hover{
 }
 
 #register-container {
- 	width: 15%;
+	display: flex;
+ 	width: 17%;
+ 	height: 10%;
  	margin-bottom: 1%;
  	background-color: ghostwhite;
+
  }
 
 #register-form input {
